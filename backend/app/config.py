@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     API_HOST: str = "0.0.0.0"
     API_PORT: int = 8000
     API_WORKERS: int = 4
-    API_CORS_ORIGINS: str = "http://localhost:3000,http://localhost:5173"
+    API_CORS_ORIGINS: str = "*"
 
     # ---- JWT ----
     JWT_SECRET_KEY: str = "dev-secret-key-change-in-production"

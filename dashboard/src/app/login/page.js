@@ -214,6 +214,10 @@ export default function LoginPage() {
           <span>🔒 Secure enterprise login</span>
           <br />
           <span>Protected by JWT + bcrypt</span>
+          <div style={{ marginTop: '16px', fontSize: '13px' }}>
+            <span style={{ color: '#94a3b8' }}>Don't have an account? </span>
+            <a href="/register" style={{ color: '#6366f1', textDecoration: 'none', fontWeight: 600 }}>Sign up</a>
+          </div>
         </div>
       </div>
     </div>
