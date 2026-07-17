@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Productivity Tracker</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 320px; font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f172a; color: #e2e8f0; padding: 20px;
+    }
+    .header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .header .dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    .dot.active { background: #4ade80; }
+    .dot.inactive { background: #ef4444; animation: none; }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    h3 { font-size: 15px; }
+    .stats { margin: 12px 0; }
+    .stat-row {
+      display: flex; justify-content: space-between; padding: 8px 0;
+      border-bottom: 1px solid rgba(99,102,241,0.1); font-size: 13px;
+    }
+    .stat-label { color: #94a3b8; }
+    .stat-value { color: #a5b4fc; font-weight: 600; }
+    .toggle-btn {
+      width: 100%; padding: 10px; border: none; border-radius: 8px;
+      font-size: 13px; font-weight: 600; cursor: pointer; margin-top: 12px;
+      transition: all 0.2s;
+    }
+    .toggle-btn.pause { background: rgba(239,68,68,0.15); color: #f87171; }
+    .toggle-btn.resume { background: rgba(34,197,94,0.15); color: #4ade80; }
+    .auth-section { margin-top: 12px; }
+    .auth-section input {
+      width: 100%; padding: 8px 10px; margin-bottom: 8px;
+      background: rgba(30,41,59,0.8); border: 1px solid rgba(99,102,241,0.3);
+      border-radius: 6px; color: #f1f5f9; font-size: 13px; outline: none;
+    }
+    .auth-btn {
+      width: 100%; padding: 10px; background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white; border: none; border-radius: 8px; font-weight: 600;
+      cursor: pointer; font-size: 13px;
+    }
+    .footer { text-align: center; margin-top: 14px; font-size: 11px; color: #475569; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="dot" id="statusDot"></div>
+    <h3>Productivity Tracker</h3>
+  </div>
+
+  <div id="authenticated" style="display:none">
+    <div class="stats">
+      <div class="stat-row">
+        <span class="stat-label">Status</span>
+        <span class="stat-value" id="statusText">Active</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Current Site</span>
+        <span class="stat-value" id="currentDomain">-</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Visits Buffered</span>
+        <span class="stat-value" id="visitCount">0</span>
+      </div>
+    </div>
+    <button class="toggle-btn pause" id="toggleBtn" onclick="toggleTracking()">
+      Pause Tracking
+    </button>
+  </div>
+
+  <div id="loginSection">
+    <div class="auth-section">
+      <input type="text" id="empId" placeholder="Employee ID" />
+      <input type="password" id="token" placeholder="Auth Token" />
+      <button class="auth-btn" onclick="authenticate()">Connect</button>
+    </div>
+  </div>
+
+  <p class="footer">🔒 Website tracking active · <a href="#" style="color:#6366f1">Privacy</a></p>
+
+  <script src="popup.js"></script>
+</body>
+</html>

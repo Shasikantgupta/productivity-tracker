@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Monitoring Consent</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .consent-container {
+      max-width: 620px;
+      background: rgba(30, 41, 59, 0.95);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 20px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    }
+    .logo { text-align: center; margin-bottom: 24px; }
+    .logo .icon {
+      width: 64px; height: 64px; background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 16px; display: inline-flex; align-items: center; justify-content: center;
+      font-size: 32px; margin-bottom: 12px;
+    }
+    h1 { font-size: 24px; text-align: center; color: #f1f5f9; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #94a3b8; margin-bottom: 28px; font-size: 14px; }
+    .section { margin-bottom: 20px; }
+    .section h3 {
+      font-size: 15px; color: #a5b4fc; margin-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .data-list { list-style: none; padding: 0; }
+    .data-list li {
+      padding: 8px 12px; background: rgba(99, 102, 241, 0.08);
+      border-radius: 8px; margin-bottom: 6px; font-size: 13px;
+      display: flex; align-items: center; gap: 10px; color: #cbd5e1;
+    }
+    .data-list li .check { color: #6366f1; }
+    .rights-box {
+      background: rgba(34, 197, 94, 0.08); border: 1px solid rgba(34, 197, 94, 0.2);
+      border-radius: 10px; padding: 16px; margin-top: 16px;
+    }
+    .rights-box h3 { color: #4ade80; }
+    .rights-box li { background: rgba(34, 197, 94, 0.05); }
+    .rights-box li .check { color: #4ade80; }
+    .buttons { display: flex; gap: 12px; margin-top: 28px; }
+    .btn {
+      flex: 1; padding: 14px; border: none; border-radius: 10px;
+      font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-accept {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white;
+    }
+    .btn-accept:hover { transform: translateY(-1px); box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4); }
+    .btn-decline {
+      background: rgba(239, 68, 68, 0.1); color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .btn-decline:hover { background: rgba(239, 68, 68, 0.2); }
+    .footer-note { text-align: center; margin-top: 16px; font-size: 12px; color: #64748b; }
+  </style>
+</head>
+<body>
+  <div class="consent-container">
+    <div class="logo">
+      <div class="icon">🛡️</div>
+    </div>
+    <h1>Employee Monitoring Consent</h1>
+    <p class="subtitle">Please review what data will be collected before proceeding</p>
+
+    <div class="section">
+      <h3>📊 Data We Collect</h3>
+      <ul class="data-list">
+        <li><span class="check">✓</span> Active and idle time tracking</li>
+        <li><span class="check">✓</span> Application usage (names and duration)</li>
+        <li><span class="check">✓</span> Website visits (domains and time spent)</li>
+        <li><span class="check">✓</span> Periodic screenshots (every 5 minutes)</li>
+        <li><span class="check">✓</span> Clock-in and clock-out times</li>
+        <li><span class="check">✓</span> Keyboard and mouse activity metrics</li>
+      </ul>
+    </div>
+
+    <div class="section rights-box">
+      <h3>🔒 Your Rights</h3>
+      <ul class="data-list">
+        <li><span class="check">✓</span> View all data collected about you anytime</li>
+        <li><span class="check">✓</span> Visible system tray indicator when tracking is active</li>
+        <li><span class="check">✓</span> Pause tracking temporarily</li>
+        <li><span class="check">✓</span> Revoke consent at any time</li>
+        <li><span class="check">✓</span> Request data deletion per company policy</li>
+        <li><span class="check">✓</span> All screenshots encrypted at rest (AES-256)</li>
+      </ul>
+    </div>
+
+    <div class="buttons">
+      <button class="btn btn-decline" onclick="decline()">Decline</button>
+      <button class="btn btn-accept" onclick="accept()">I Accept & Consent</button>
+    </div>
+
+    <p class="footer-note">
+      By clicking "I Accept", you acknowledge you have read and agree to the
+      <a href="#" style="color: #818cf8;">Privacy Policy</a>.
+      You can revoke consent at any time from the system tray.
+    </p>
+  </div>
+
+  <script>
+    async function accept() {
+      await window.agentAPI.acceptConsent();
+    }
+    async function decline() {
+      await window.agentAPI.declineConsent();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Productivity Agent - Login</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #e2e8f0; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .login-card {
+      width: 380px; background: rgba(30, 41, 59, 0.95);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 16px; padding: 40px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+    .logo { text-align: center; margin-bottom: 28px; }
+    .logo .icon {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 14px; display: inline-flex;
+      align-items: center; justify-content: center;
+      font-size: 28px; margin-bottom: 10px;
+    }
+    h2 { text-align: center; margin-bottom: 4px; font-size: 20px; }
+    .sub { text-align: center; color: #94a3b8; font-size: 13px; margin-bottom: 24px; }
+    .field { margin-bottom: 16px; }
+    label { display: block; font-size: 13px; color: #94a3b8; margin-bottom: 6px; }
+    input {
+      width: 100%; padding: 12px 14px; border-radius: 10px;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      background: rgba(15, 23, 42, 0.6); color: #f1f5f9;
+      font-size: 14px; outline: none; transition: border 0.2s;
+    }
+    input:focus { border-color: #6366f1; }
+    .btn-login {
+      width: 100%; padding: 14px; border: none; border-radius: 10px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white; font-size: 15px; font-weight: 600;
+      cursor: pointer; margin-top: 8px; transition: all 0.2s;
+    }
+    .btn-login:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4); }
+    .btn-login:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .error { color: #f87171; font-size: 13px; text-align: center; margin-top: 12px; display: none; }
+    .status { font-size: 12px; text-align: center; margin-top: 16px; color: #64748b; }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <div class="logo"><div class="icon">📊</div></div>
+    <h2>Productivity Agent</h2>
+    <p class="sub">Sign in with your company account</p>
+
+    <div class="field">
+      <label>Email</label>
+      <input type="email" id="email" placeholder="you@company.com" />
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="password" placeholder="••••••••" />
+    </div>
+
+    <button class="btn-login" id="loginBtn" onclick="handleLogin()">Sign In</button>
+    <p class="error" id="error"></p>
+    <p class="status">🔒 Secure connection to company server</p>
+  </div>
+
+  <script>
+    async function handleLogin() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const btn = document.getElementById('loginBtn');
+      const error = document.getElementById('error');
+
+      if (!email || !password) {
+        error.textContent = 'Please enter email and password';
+        error.style.display = 'block';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Signing in...';
+      error.style.display = 'none';
+
+      const result = await window.agentAPI.login(email, password);
+
+      if (result.success) {
+        btn.textContent = '✓ Connected';
+      } else {
+        error.textContent = result.error || 'Login failed';
+        error.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Sign In';
+      }
+    }
+
+    // Enter key support
+    document.getElementById('password').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleLogin();
+    });
+  </script>
+</body>
+</html>

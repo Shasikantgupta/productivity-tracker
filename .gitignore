@@ -1,0 +1,54 @@
+# Byte-compiled
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual env
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Database
+*.db
+*.sqlite3
+
+# Uploads
+uploads/
+screenshots/
+
+# Logs
+logs/
+*.log
+
+# Node
+node_modules/
+.next/
+dist/
+out/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Docker volumes
+postgres_data/
+redis_data/
+
+# Models
+models/*.pkl
+models/*.joblib
+
+# Build
+*.egg-info/
+build/

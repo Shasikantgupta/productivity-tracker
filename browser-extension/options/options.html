@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Extension Settings</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f172a; color: #e2e8f0;
+      padding: 40px; max-width: 500px; margin: 0 auto;
+    }
+    h1 { font-size: 22px; margin-bottom: 24px; }
+    .field { margin-bottom: 20px; }
+    label { display: block; font-size: 13px; color: #94a3b8; margin-bottom: 6px; font-weight: 500; }
+    input {
+      width: 100%; padding: 12px 14px; border-radius: 10px;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      background: rgba(15, 23, 42, 0.6); color: #f1f5f9;
+      font-size: 14px; outline: none;
+    }
+    input:focus { border-color: #6366f1; }
+    .btn {
+      padding: 12px 24px; border: none; border-radius: 10px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white; font-weight: 600; font-size: 14px; cursor: pointer;
+      margin-top: 8px;
+    }
+    .btn:hover { box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3); }
+    .status {
+      margin-top: 16px; padding: 12px; border-radius: 8px;
+      font-size: 13px; display: none;
+    }
+    .status.success { display: block; background: rgba(34, 197, 94, 0.1); color: #4ade80; }
+    .status.error { display: block; background: rgba(239, 68, 68, 0.1); color: #f87171; }
+    .section { margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(99,102,241,0.15); }
+    .toggle-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 0;
+    }
+    .toggle-label { font-size: 14px; }
+    .toggle {
+      position: relative; width: 44px; height: 24px; cursor: pointer;
+    }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; inset: 0; background: rgba(99,102,241,0.2);
+      border-radius: 12px; transition: 0.3s;
+    }
+    .slider::before {
+      content: ''; position: absolute; width: 18px; height: 18px;
+      border-radius: 50%; background: white; bottom: 3px; left: 3px;
+      transition: 0.3s;
+    }
+    .toggle input:checked + .slider { background: #6366f1; }
+    .toggle input:checked + .slider::before { transform: translateX(20px); }
+  </style>
+</head>
+<body>
+  <h1>⚙️ Extension Settings</h1>
+
+  <div class="field">
+    <label>API Server URL</label>
+    <input type="text" id="apiUrl" placeholder="http://localhost:8000/api/v1" />
+  </div>
+
+  <div class="field">
+    <label>Employee ID</label>
+    <input type="text" id="employeeId" placeholder="Your employee UUID" />
+  </div>
+
+  <div class="field">
+    <label>Auth Token</label>
+    <input type="password" id="authToken" placeholder="JWT token from agent or dashboard" />
+  </div>
+
+  <button class="btn" onclick="saveSettings()">Save Settings</button>
+
+  <div class="status" id="status"></div>
+
+  <div class="section">
+    <h2 style="font-size: 16px; margin-bottom: 12px;">Tracking Options</h2>
+
+    <div class="toggle-row">
+      <span class="toggle-label">Enable website tracking</span>
+      <label class="toggle">
+        <input type="checkbox" id="trackingEnabled" checked />
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="toggle-row">
+      <span class="toggle-label">Track page titles</span>
+      <label class="toggle">
+        <input type="checkbox" id="trackTitles" checked />
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="toggle-row">
+      <span class="toggle-label">Track full URLs (vs domain only)</span>
+      <label class="toggle">
+        <input type="checkbox" id="trackFullUrls" />
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <div class="section" style="font-size: 12px; color: #475569; margin-top: 24px;">
+    <p>🔒 All data is transmitted securely via HTTPS.</p>
+    <p style="margin-top: 4px;">Your employer's privacy policy applies to all collected data.</p>
+  </div>
+
+  <script>
+    // Load saved settings
+    chrome.storage.sync.get(
+      ['apiUrl', 'employeeId', 'authToken', 'isTracking', 'trackTitles', 'trackFullUrls'],
+      (data) => {
+        if (data.apiUrl) document.getElementById('apiUrl').value = data.apiUrl;
+        if (data.employeeId) document.getElementById('employeeId').value = data.employeeId;
+        if (data.authToken) document.getElementById('authToken').value = data.authToken;
+        document.getElementById('trackingEnabled').checked = data.isTracking !== false;
+        document.getElementById('trackTitles').checked = data.trackTitles !== false;
+        document.getElementById('trackFullUrls').checked = data.trackFullUrls === true;
+      }
+    );
+
+    function saveSettings() {
+      const settings = {
+        apiUrl: document.getElementById('apiUrl').value,
+        employeeId: document.getElementById('employeeId').value,
+        authToken: document.getElementById('authToken').value,
+        isTracking: document.getElementById('trackingEnabled').checked,
+        trackTitles: document.getElementById('trackTitles').checked,
+        trackFullUrls: document.getElementById('trackFullUrls').checked,
+      };
+
+      chrome.storage.sync.set(settings, () => {
+        // Update background service worker auth
+        chrome.runtime.sendMessage({
+          type: 'SET_AUTH',
+          token: settings.authToken,
+          employeeId: settings.employeeId,
+        });
+
+        const status = document.getElementById('status');
+        status.textContent = '✓ Settings saved successfully';
+        status.className = 'status success';
+        setTimeout(() => { status.className = 'status'; }, 3000);
+      });
+    }
+  </script>
+</body>
+</html>
