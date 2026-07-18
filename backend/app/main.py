@@ -2,6 +2,7 @@
 Employee Productivity Analytics - FastAPI Backend
 Main Application Entry Point
 """
+import os
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -25,6 +26,9 @@ logger.add(
     format="<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>",
     level="DEBUG" if settings.APP_DEBUG else "INFO",
 )
+
+# Create logs directory if it doesn't exist
+os.makedirs("logs", exist_ok=True)
 logger.add(
     "logs/app_{time:YYYY-MM-DD}.log",
     rotation="00:00",
@@ -39,16 +43,20 @@ async def lifespan(app: FastAPI):
     """Application lifecycle manager."""
     logger.info("🚀 Starting Productivity Analytics Backend...")
     logger.info(f"Environment: {settings.APP_ENV}")
+    logger.info(f"Database: {'SQLite (local dev)' if settings.IS_SQLITE else 'PostgreSQL'}")
 
     # Initialize database tables
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-    logger.info("✅ Database tables initialized")
+    try:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+        logger.info("✅ Database tables initialized")
+    except Exception as e:
+        logger.error(f"❌ Database initialization failed: {e}")
+        raise
 
-    # Initialize Redis connection pool
+    # Initialize Redis connection pool (graceful — won't crash if Redis is down)
     from app.core.redis_client import redis_manager
     await redis_manager.connect()
-    logger.info("✅ Redis connected")
 
     yield
 
@@ -83,8 +91,10 @@ app.add_middleware(RateLimitMiddleware, max_requests=100, window_seconds=60)
 if settings.APP_ENV == "production":
     app.add_middleware(TrustedHostMiddleware, allowed_hosts=["*.yourcompany.com"])
 
-# ---- Mount Static Files ----
-app.mount("/static", StaticFiles(directory="static"), name="static")
+# ---- Mount Static Files (only if directory exists) ----
+static_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "static")
+if os.path.isdir(static_dir):
+    app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 # ---- Socket.IO Integration ----
 socket_app = socketio.ASGIApp(sio, other_asgi_app=app)
@@ -105,10 +115,13 @@ app.include_router(admin.router, prefix=f"{API_V1}/admin", tags=["Administration
 @app.get("/health", tags=["Health"])
 async def health_check():
     """Application health check endpoint."""
+    from app.core.redis_client import redis_manager
     return {
         "status": "healthy",
         "version": settings.APP_VERSION,
         "environment": settings.APP_ENV,
+        "database": "sqlite" if settings.IS_SQLITE else "postgresql",
+        "redis": "connected" if redis_manager._available else "unavailable",
     }
 
 

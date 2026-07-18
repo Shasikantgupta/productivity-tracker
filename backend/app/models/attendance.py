@@ -8,11 +8,11 @@ from sqlalchemy import (
     Column, String, DateTime, Date, Integer, Float,
     ForeignKey, Text, Enum as SQLEnum, Boolean, Index
 )
-from sqlalchemy.dialects.postgresql import UUID, INET
 from sqlalchemy.orm import relationship
 import enum
 
 from app.database import Base
+from app.models.compat import GUID, IPAddress
 
 
 class AttendanceStatus(str, enum.Enum):
@@ -41,8 +41,8 @@ class AttendanceRecord(Base):
         Index("idx_attendance_employee_date", "employee_id", "work_date", unique=True),
     )
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    employee_id = Column(UUID(as_uuid=True), ForeignKey("employees.id"), nullable=False, index=True)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
+    employee_id = Column(GUID(), ForeignKey("employees.id"), nullable=False, index=True)
     work_date = Column(Date, nullable=False, index=True)
 
     # Clock times
@@ -63,8 +63,8 @@ class AttendanceRecord(Base):
     overtime_hours = Column(Float, default=0.0)
 
     # Location
-    clock_in_ip = Column(INET, nullable=True)
-    clock_out_ip = Column(INET, nullable=True)
+    clock_in_ip = Column(IPAddress(), nullable=True)
+    clock_out_ip = Column(IPAddress(), nullable=True)
     is_remote = Column(Boolean, default=False)
 
     # Notes

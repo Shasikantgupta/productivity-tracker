@@ -8,11 +8,11 @@ from sqlalchemy import (
     Column, String, Boolean, DateTime, Integer, Float,
     ForeignKey, Text, Enum as SQLEnum, Index
 )
-from sqlalchemy.dialects.postgresql import UUID, JSONB, INET
 from sqlalchemy.orm import relationship
 import enum
 
 from app.database import Base
+from app.models.compat import GUID, JSONType, IPAddress
 
 
 class ActivityStatus(str, enum.Enum):
@@ -33,8 +33,8 @@ class ActivityLog(Base):
         Index("idx_activity_status", "status"),
     )
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    employee_id = Column(UUID(as_uuid=True), ForeignKey("employees.id"), nullable=False, index=True)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
+    employee_id = Column(GUID(), ForeignKey("employees.id"), nullable=False, index=True)
 
     status = Column(SQLEnum(ActivityStatus), nullable=False)
     started_at = Column(DateTime, nullable=False, index=True)
@@ -48,7 +48,7 @@ class ActivityLog(Base):
 
     # Context
     machine_name = Column(String(200), nullable=True)
-    ip_address = Column(INET, nullable=True)
+    ip_address = Column(IPAddress(), nullable=True)
 
     created_at = Column(DateTime, default=datetime.utcnow)
 
@@ -79,8 +79,8 @@ class AppUsageLog(Base):
         Index("idx_app_usage_name", "app_name"),
     )
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    employee_id = Column(UUID(as_uuid=True), ForeignKey("employees.id"), nullable=False, index=True)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
+    employee_id = Column(GUID(), ForeignKey("employees.id"), nullable=False, index=True)
 
     # App Info
     app_name = Column(String(300), nullable=False)
@@ -95,7 +95,7 @@ class AppUsageLog(Base):
     is_foreground = Column(Boolean, default=True)
 
     # Metadata
-    app_metadata = Column(JSONB, nullable=True)
+    app_metadata = Column(JSONType(), nullable=True)
 
     created_at = Column(DateTime, default=datetime.utcnow)
 
@@ -127,8 +127,8 @@ class WebsiteVisitLog(Base):
         Index("idx_website_domain", "domain"),
     )
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    employee_id = Column(UUID(as_uuid=True), ForeignKey("employees.id"), nullable=False, index=True)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
+    employee_id = Column(GUID(), ForeignKey("employees.id"), nullable=False, index=True)
 
     # URL Info
     url = Column(Text, nullable=False)

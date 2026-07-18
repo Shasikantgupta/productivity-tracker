@@ -6,6 +6,7 @@ from pydantic_settings import BaseSettings
 from pydantic import field_validator
 from typing import List
 from functools import lru_cache
+import os
 
 
 class Settings(BaseSettings):
@@ -30,7 +31,8 @@ class Settings(BaseSettings):
     JWT_REFRESH_TOKEN_EXPIRE_DAYS: int = 7
 
     # ---- Database ----
-    DATABASE_URL: str = "postgresql+asyncpg://prodtracker:devpassword@localhost:5432/productivity_tracker"
+    # Default to SQLite for local development so the app works without PostgreSQL
+    DATABASE_URL: str = "sqlite+aiosqlite:///./productivity_tracker.db"
 
     # ---- Redis ----
     REDIS_URL: str = "redis://localhost:6379/0"
@@ -54,11 +56,18 @@ class Settings(BaseSettings):
     SMTP_PASSWORD: str = ""
 
     @property
+    def IS_SQLITE(self) -> bool:
+        """Check if using SQLite database."""
+        return "sqlite" in self.DATABASE_URL
+
+    @property
     def CORS_ORIGINS(self) -> List[str]:
         return [origin.strip() for origin in self.API_CORS_ORIGINS.split(",")]
 
     @property
     def SYNC_DATABASE_URL(self) -> str:
+        if self.IS_SQLITE:
+            return self.DATABASE_URL.replace("+aiosqlite", "")
         return self.DATABASE_URL.replace("+asyncpg", "")
 
     class Config:

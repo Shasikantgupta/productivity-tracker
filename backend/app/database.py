@@ -1,10 +1,11 @@
 """
 Database Configuration
 Async SQLAlchemy engine and session management
+Supports both PostgreSQL (production) and SQLite (local development)
 """
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy import MetaData
+from sqlalchemy import MetaData, event
 from app.config import settings
 
 # Naming convention for consistent migration generation
@@ -24,15 +25,32 @@ class Base(DeclarativeBase):
     metadata = metadata
 
 
-# Async engine configuration
-engine = create_async_engine(
-    settings.DATABASE_URL,
-    echo=settings.APP_DEBUG,
-    pool_size=20,
-    max_overflow=10,
-    pool_pre_ping=True,
-    pool_recycle=3600,
-)
+# Async engine configuration — adapt based on DB type
+if settings.IS_SQLITE:
+    # SQLite: no connection pooling options, enable WAL mode for concurrency
+    engine = create_async_engine(
+        settings.DATABASE_URL,
+        echo=settings.APP_DEBUG,
+        connect_args={"check_same_thread": False},
+    )
+
+    # Enable WAL mode for better concurrent access
+    @event.listens_for(engine.sync_engine, "connect")
+    def _set_sqlite_pragma(dbapi_connection, connection_record):
+        cursor = dbapi_connection.cursor()
+        cursor.execute("PRAGMA journal_mode=WAL;")
+        cursor.execute("PRAGMA foreign_keys=ON;")
+        cursor.close()
+else:
+    # PostgreSQL: full connection pool configuration
+    engine = create_async_engine(
+        settings.DATABASE_URL,
+        echo=settings.APP_DEBUG,
+        pool_size=20,
+        max_overflow=10,
+        pool_pre_ping=True,
+        pool_recycle=3600,
+    )
 
 # Session factory
 async_session_factory = async_sessionmaker(

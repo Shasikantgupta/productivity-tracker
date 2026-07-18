@@ -79,7 +79,7 @@ class AppUsageResponse(BaseModel):
     id: UUID
     app_name: str
     window_title: Optional[str] = None
-    app_category: str
+    app_executable: Optional[str] = None
     started_at: datetime
     duration_seconds: Optional[int] = None
     is_foreground: bool

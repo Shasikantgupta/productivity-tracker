@@ -8,11 +8,11 @@ from sqlalchemy import (
     Column, String, Boolean, DateTime, Date, Integer,
     ForeignKey, Text, Float, Enum as SQLEnum
 )
-from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.orm import relationship
 import enum
 
 from app.database import Base
+from app.models.compat import GUID, JSONType
 
 
 class EmploymentStatus(str, enum.Enum):
@@ -26,12 +26,12 @@ class Department(Base):
     """Department/Organization unit model."""
     __tablename__ = "departments"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
     name = Column(String(200), unique=True, nullable=False)
     code = Column(String(20), unique=True, nullable=False)
     description = Column(Text, nullable=True)
-    head_id = Column(UUID(as_uuid=True), ForeignKey("employees.id"), nullable=True)
-    parent_id = Column(UUID(as_uuid=True), ForeignKey("departments.id"), nullable=True)
+    head_id = Column(GUID(), ForeignKey("employees.id"), nullable=True)
+    parent_id = Column(GUID(), ForeignKey("departments.id"), nullable=True)
     is_active = Column(Boolean, default=True)
 
     created_at = Column(DateTime, default=datetime.utcnow)
@@ -47,10 +47,10 @@ class Team(Base):
     """Team within a department."""
     __tablename__ = "teams"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
     name = Column(String(200), nullable=False)
-    department_id = Column(UUID(as_uuid=True), ForeignKey("departments.id"), nullable=False)
-    lead_id = Column(UUID(as_uuid=True), ForeignKey("employees.id"), nullable=True)
+    department_id = Column(GUID(), ForeignKey("departments.id"), nullable=False)
+    lead_id = Column(GUID(), ForeignKey("employees.id"), nullable=True)
     description = Column(Text, nullable=True)
     is_active = Column(Boolean, default=True)
 
@@ -69,8 +69,8 @@ class Employee(Base):
     """
     __tablename__ = "employees"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), unique=True, nullable=False)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
+    user_id = Column(GUID(), ForeignKey("users.id"), unique=True, nullable=False)
     employee_code = Column(String(50), unique=True, nullable=False, index=True)
 
     # Personal Info
@@ -80,9 +80,9 @@ class Employee(Base):
     avatar_url = Column(String(500), nullable=True)
 
     # Work Info
-    department_id = Column(UUID(as_uuid=True), ForeignKey("departments.id"), nullable=True)
-    team_id = Column(UUID(as_uuid=True), ForeignKey("teams.id"), nullable=True)
-    manager_id = Column(UUID(as_uuid=True), ForeignKey("employees.id"), nullable=True)
+    department_id = Column(GUID(), ForeignKey("departments.id"), nullable=True)
+    team_id = Column(GUID(), ForeignKey("teams.id"), nullable=True)
+    manager_id = Column(GUID(), ForeignKey("employees.id"), nullable=True)
     designation = Column(String(200), nullable=True)
     employment_status = Column(SQLEnum(EmploymentStatus), default=EmploymentStatus.ACTIVE)
     join_date = Column(Date, nullable=False, default=date.today)
@@ -98,7 +98,7 @@ class Employee(Base):
     # Productivity Settings
     expected_hours_per_day = Column(Float, default=8.0)
     timezone = Column(String(50), default="UTC")
-    work_schedule = Column(JSONB, default=lambda: {
+    work_schedule = Column(JSONType(), default=lambda: {
         "monday": {"start": "09:00", "end": "18:00"},
         "tuesday": {"start": "09:00", "end": "18:00"},
         "wednesday": {"start": "09:00", "end": "18:00"},

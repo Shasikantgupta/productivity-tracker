@@ -8,10 +8,10 @@ from sqlalchemy import (
     Column, String, DateTime, Date, Integer, Float,
     ForeignKey, Text, Enum as SQLEnum, Index
 )
-from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.orm import relationship
 import enum
 from app.database import Base
+from app.models.compat import GUID, JSONType
 
 
 class ProductivityScore(Base):
@@ -21,8 +21,8 @@ class ProductivityScore(Base):
         Index("idx_prod_score_employee_date", "employee_id", "score_date", unique=True),
     )
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    employee_id = Column(UUID(as_uuid=True), ForeignKey("employees.id"), nullable=False)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
+    employee_id = Column(GUID(), ForeignKey("employees.id"), nullable=False)
     score_date = Column(Date, nullable=False, index=True)
     overall_score = Column(Float, nullable=False)  # 0-100
     active_time_score = Column(Float, nullable=True)
@@ -33,9 +33,9 @@ class ProductivityScore(Base):
     total_idle_minutes = Column(Integer, default=0)
     productive_app_minutes = Column(Integer, default=0)
     unproductive_app_minutes = Column(Integer, default=0)
-    top_apps = Column(JSONB, nullable=True)
-    top_websites = Column(JSONB, nullable=True)
-    ai_insights = Column(JSONB, nullable=True)
+    top_apps = Column(JSONType(), nullable=True)
+    top_websites = Column(JSONType(), nullable=True)
+    ai_insights = Column(JSONType(), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     employee = relationship("Employee", back_populates="productivity_scores")
@@ -52,16 +52,16 @@ class ProductivityReport(Base):
     """Generated productivity reports for teams/departments."""
     __tablename__ = "productivity_reports"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
     report_type = Column(SQLEnum(ReportType), nullable=False)
     title = Column(String(300), nullable=False)
-    generated_by = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
-    department_id = Column(UUID(as_uuid=True), ForeignKey("departments.id"), nullable=True)
-    team_id = Column(UUID(as_uuid=True), ForeignKey("teams.id"), nullable=True)
+    generated_by = Column(GUID(), ForeignKey("users.id"), nullable=False)
+    department_id = Column(GUID(), ForeignKey("departments.id"), nullable=True)
+    team_id = Column(GUID(), ForeignKey("teams.id"), nullable=True)
     date_from = Column(Date, nullable=False)
     date_to = Column(Date, nullable=False)
-    report_data = Column(JSONB, nullable=False)
+    report_data = Column(JSONType(), nullable=False)
     ai_summary = Column(Text, nullable=True)
-    ai_recommendations = Column(JSONB, nullable=True)
+    ai_recommendations = Column(JSONType(), nullable=True)
     file_path = Column(String(500), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)

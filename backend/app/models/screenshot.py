@@ -8,10 +8,10 @@ from sqlalchemy import (
     Column, String, DateTime, Integer, Float,
     ForeignKey, Text, Boolean, Enum as SQLEnum, Index
 )
-from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.orm import relationship
 import enum
 from app.database import Base
+from app.models.compat import GUID, JSONType
 
 
 class ScreenshotType(str, enum.Enum):
@@ -27,8 +27,8 @@ class Screenshot(Base):
         Index("idx_screenshot_employee_date", "employee_id", "captured_at"),
     )
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    employee_id = Column(UUID(as_uuid=True), ForeignKey("employees.id"), nullable=False, index=True)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
+    employee_id = Column(GUID(), ForeignKey("employees.id"), nullable=False, index=True)
     file_path = Column(String(500), nullable=False)
     file_name = Column(String(200), nullable=False)
     file_size_bytes = Column(Integer, nullable=True)
@@ -42,7 +42,7 @@ class Screenshot(Base):
     active_app = Column(String(300), nullable=True)
     active_window_title = Column(Text, nullable=True)
     ai_productivity_score = Column(Float, nullable=True)
-    ai_labels = Column(JSONB, nullable=True)
+    ai_labels = Column(JSONType(), nullable=True)
     is_blurred = Column(Boolean, default=False)
     is_deleted = Column(Boolean, default=False)
     deleted_at = Column(DateTime, nullable=True)

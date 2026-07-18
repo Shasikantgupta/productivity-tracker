@@ -7,9 +7,9 @@ from datetime import datetime
 from sqlalchemy import (
     Column, String, DateTime, Boolean, ForeignKey, Text, Enum as SQLEnum, Index
 )
-from sqlalchemy.dialects.postgresql import UUID, JSONB
 import enum
 from app.database import Base
+from app.models.compat import GUID, JSONType
 
 
 class AlertSeverity(str, enum.Enum):
@@ -38,16 +38,16 @@ class SecurityAlert(Base):
         Index("idx_alert_severity", "severity"),
     )
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    employee_id = Column(UUID(as_uuid=True), ForeignKey("employees.id"), nullable=False)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
+    employee_id = Column(GUID(), ForeignKey("employees.id"), nullable=False)
     alert_type = Column(SQLEnum(AlertType), nullable=False)
     severity = Column(SQLEnum(AlertSeverity), default=AlertSeverity.LOW)
     title = Column(String(300), nullable=False)
     description = Column(Text, nullable=True)
-    details = Column(JSONB, nullable=True)
+    details = Column(JSONType(), nullable=True)
     triggered_at = Column(DateTime, nullable=False, default=datetime.utcnow)
     acknowledged = Column(Boolean, default=False)
-    acknowledged_by = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
+    acknowledged_by = Column(GUID(), ForeignKey("users.id"), nullable=True)
     acknowledged_at = Column(DateTime, nullable=True)
     resolved = Column(Boolean, default=False)
     resolved_at = Column(DateTime, nullable=True)
