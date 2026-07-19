@@ -1,5 +1,9 @@
 # Employee Productivity Analytics System
 
+[![Vercel Status](https://img.shields.io/badge/Vercel-Deployed-success?style=flat&logo=vercel)](https://dashboard-c9hqno23l-shashikant-guptas-projects-23e2cb1e.vercel.app)
+
+**Live Dashboard Demo:** [https://dashboard-c9hqno23l-shashikant-guptas-projects-23e2cb1e.vercel.app](https://dashboard-c9hqno23l-shashikant-guptas-projects-23e2cb1e.vercel.app)
+
 Enterprise-grade employee productivity monitoring and analytics platform with real-time tracking, AI-powered insights, and full privacy compliance.
 
 ## 🏗️ Architecture
