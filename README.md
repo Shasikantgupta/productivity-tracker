@@ -4,6 +4,11 @@
 
 **Live Dashboard Demo:** [https://dashboard-c9hqno23l-shashikant-guptas-projects-23e2cb1e.vercel.app](https://dashboard-c9hqno23l-shashikant-guptas-projects-23e2cb1e.vercel.app)
 
+> **Demo Admin Credentials**  
+> **Email:** `admin@company.com`  
+> **Password:** `Admin@123456`
+
+
 Enterprise-grade employee productivity monitoring and analytics platform with real-time tracking, AI-powered insights, and full privacy compliance.
 
 ## ✨ Recent Enhancements
