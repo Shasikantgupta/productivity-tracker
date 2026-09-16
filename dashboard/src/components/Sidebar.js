@@ -5,33 +5,33 @@ export default function Sidebar({ activePage = 'dashboard' }) {
     {
       title: 'Overview',
       items: [
-        { id: 'dashboard', label: 'Dashboard', icon: '📊', href: '/' },
-        { id: 'live', label: 'Live Monitor', icon: '🔴', href: '/live' },
+        { id: 'dashboard', label: 'Dashboard', icon: '◉', href: '/' },
+        { id: 'live', label: 'Live Monitor', icon: '◎', href: '/live' },
       ],
     },
     {
       title: 'Monitoring',
       items: [
-        { id: 'employees', label: 'Employees', icon: '👥', href: '/employees' },
-        { id: 'attendance', label: 'Attendance', icon: '📅', href: '/attendance' },
-        { id: 'screenshots', label: 'Screenshots', icon: '📸', href: '/screenshots' },
-        { id: 'apps', label: 'App Usage', icon: '💻', href: '/apps' },
-        { id: 'websites', label: 'Websites', icon: '🌐', href: '/websites' },
+        { id: 'employees', label: 'Employees', icon: '⬡', href: '/employees' },
+        { id: 'attendance', label: 'Attendance', icon: '▣', href: '/attendance' },
+        { id: 'screenshots', label: 'Screenshots', icon: '⊞', href: '/screenshots' },
+        { id: 'apps', label: 'App Usage', icon: '⬢', href: '/apps' },
+        { id: 'websites', label: 'Websites', icon: '◇', href: '/websites' },
       ],
     },
     {
       title: 'Analytics',
       items: [
-        { id: 'reports', label: 'Reports', icon: '📈', href: '/reports' },
-        { id: 'insights', label: 'AI Insights', icon: '🤖', href: '/insights' },
+        { id: 'reports', label: 'Reports', icon: '△', href: '/reports' },
+        { id: 'insights', label: 'AI Insights', icon: '◈', href: '/insights' },
       ],
     },
     {
       title: 'Admin',
       items: [
-        { id: 'settings', label: 'Settings', icon: '⚙️', href: '/settings' },
-        { id: 'alerts', label: 'Alerts', icon: '🚨', href: '/alerts' },
-        { id: 'privacy', label: 'Privacy', icon: '🔒', href: '/privacy' },
+        { id: 'settings', label: 'Settings', icon: '⊙', href: '/settings' },
+        { id: 'alerts', label: 'Alerts', icon: '⊘', href: '/alerts' },
+        { id: 'privacy', label: 'Privacy', icon: '⊕', href: '/privacy' },
       ],
     },
   ];
@@ -45,7 +45,7 @@ export default function Sidebar({ activePage = 'dashboard' }) {
   return (
     <aside className="sidebar">
       <div className="sidebar-logo">
-        <div className="logo-icon">📊</div>
+        <div className="logo-icon">P</div>
         <h1>ProTracker</h1>
       </div>
 
@@ -60,7 +60,7 @@ export default function Sidebar({ activePage = 'dashboard' }) {
                     href={item.href}
                     className={`nav-link ${activePage === item.id ? 'active' : ''}`}
                   >
-                    <span>{item.icon}</span>
+                    <span style={{ fontSize: '14px', opacity: 0.6 }}>{item.icon}</span>
                     <span>{item.label}</span>
                   </a>
                 </li>
@@ -78,15 +78,15 @@ export default function Sidebar({ activePage = 'dashboard' }) {
         flexDirection: 'column',
         gap: '12px'
       }}>
-        <button onClick={handleLogout} className="btn btn-outline" style={{ width: '100%', fontSize: '13px', padding: '8px' }}>
-          Logout
+        <button onClick={handleLogout} className="btn btn-outline" style={{ width: '100%', fontSize: '12px', padding: '8px' }}>
+          Sign Out
         </button>
-        <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+        <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
             <span className="online-dot active" />
-            <span style={{ color: 'var(--text-secondary)' }}>System Online</span>
+            <span style={{ color: 'var(--text-secondary)', fontSize: '11px' }}>System Active</span>
           </div>
-          <span>v1.0.0 · ProTracker Enterprise</span>
+          <span style={{ letterSpacing: '0.5px' }}>v1.0 · Enterprise</span>
         </div>
       </div>
     </aside>

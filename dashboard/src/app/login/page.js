@@ -81,103 +81,102 @@ export default function LoginPage() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: 'linear-gradient(135deg, #0a0e1a 0%, #111827 50%, #0a0e1a 100%)',
-      fontFamily: "'Inter', system-ui, sans-serif",
+      background: '#000000',
+      fontFamily: "'Inter', 'Space Grotesk', system-ui, sans-serif",
+      position: 'relative',
+      overflow: 'hidden',
     }}>
-      {/* Background decoration */}
+      {/* Ambient background orbs */}
       <div style={{
-        position: 'fixed', top: '-30%', right: '-10%',
-        width: '600px', height: '600px',
-        background: isAdmin
-          ? 'radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%)'
-          : 'radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%)',
+        position: 'fixed', top: '-30%', right: '-15%',
+        width: '700px', height: '700px',
+        background: 'radial-gradient(circle, rgba(168, 85, 247, 0.04) 0%, transparent 70%)',
         borderRadius: '50%', pointerEvents: 'none',
-        transition: 'background 0.5s ease',
+        animation: 'ambient-drift 25s ease-in-out infinite alternate',
       }} />
       <div style={{
-        position: 'fixed', bottom: '-20%', left: '-10%',
+        position: 'fixed', bottom: '-25%', left: '-10%',
         width: '500px', height: '500px',
-        background: isAdmin
-          ? 'radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 70%)'
-          : 'radial-gradient(circle, rgba(6,182,212,0.06) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(255, 255, 255, 0.02) 0%, transparent 70%)',
         borderRadius: '50%', pointerEvents: 'none',
-        transition: 'background 0.5s ease',
+        animation: 'ambient-drift 30s ease-in-out infinite alternate-reverse',
       }} />
 
       <div style={{
-        width: '440px',
-        background: 'rgba(26, 31, 53, 0.9)',
-        border: `1px solid ${isAdmin ? 'rgba(99, 102, 241, 0.15)' : 'rgba(16, 185, 129, 0.15)'}`,
-        borderRadius: '20px',
+        width: '420px',
+        background: 'rgba(255, 255, 255, 0.03)',
+        border: '1px solid rgba(255, 255, 255, 0.06)',
+        borderRadius: '24px',
         padding: '48px 40px',
-        boxShadow: `0 30px 60px rgba(0, 0, 0, 0.4), 0 0 80px ${isAdmin ? 'rgba(99, 102, 241, 0.05)' : 'rgba(16, 185, 129, 0.05)'}`,
+        boxShadow: '0 0 0 1px rgba(255,255,255,0.02) inset, 0 40px 80px rgba(0, 0, 0, 0.5)',
+        backdropFilter: 'blur(40px)',
         position: 'relative',
         zIndex: 1,
-        transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
+        animation: 'card-float-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        opacity: 0,
+        transform: 'translateY(20px)',
       }}>
         {/* Logo */}
-        <div style={{ textAlign: 'center', marginBottom: '28px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '36px' }}>
           <div style={{
-            width: '64px', height: '64px',
-            background: isAdmin
-              ? 'linear-gradient(135deg, #6366f1, #8b5cf6)'
-              : 'linear-gradient(135deg, #10b981, #06b6d4)',
+            width: '56px', height: '56px',
+            background: '#ffffff',
             borderRadius: '16px',
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: '32px',
-            marginBottom: '16px',
-            boxShadow: isAdmin
-              ? '0 8px 24px rgba(99, 102, 241, 0.3)'
-              : '0 8px 24px rgba(16, 185, 129, 0.3)',
-            transition: 'all 0.3s ease',
-          }}>{isAdmin ? '🛡️' : '👤'}</div>
+            fontSize: '24px',
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontWeight: 700,
+            color: '#000000',
+            marginBottom: '20px',
+            boxShadow: '0 0 30px rgba(255, 255, 255, 0.1)',
+          }}>P</div>
           <h1 style={{
-            fontSize: '24px', fontWeight: 800,
-            color: '#f1f5f9', letterSpacing: '-0.5px',
-            marginBottom: '4px',
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: '26px', fontWeight: 700,
+            color: '#ffffff', letterSpacing: '-0.8px',
+            marginBottom: '6px',
           }}>
             ProTracker
           </h1>
-          <p style={{ fontSize: '14px', color: '#94a3b8' }}>
-            {isAdmin ? 'Admin Dashboard Login' : 'Employee Portal Login'}
+          <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.3)', letterSpacing: '0.3px' }}>
+            {isAdmin ? 'Admin Dashboard' : 'Employee Portal'}
           </p>
         </div>
 
         {/* Role Toggle */}
         <div style={{
           display: 'flex',
-          background: 'rgba(15, 22, 41, 0.6)',
+          background: 'rgba(255, 255, 255, 0.03)',
           borderRadius: '14px',
           padding: '4px',
-          marginBottom: '28px',
-          border: '1px solid rgba(99, 102, 241, 0.1)',
+          marginBottom: '32px',
+          border: '1px solid rgba(255, 255, 255, 0.06)',
         }}>
           <button
             type="button"
             onClick={() => setRole('admin')}
             style={{
               flex: 1,
-              padding: '12px 16px',
+              padding: '11px 16px',
               borderRadius: '11px',
               border: 'none',
               cursor: 'pointer',
-              fontSize: '14px',
+              fontSize: '13px',
               fontWeight: 600,
-              transition: 'all 0.3s ease',
+              transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               gap: '8px',
-              background: isAdmin
-                ? 'linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.15))'
-                : 'transparent',
-              color: isAdmin ? '#a5b4fc' : '#64748b',
-              boxShadow: isAdmin ? '0 2px 12px rgba(99, 102, 241, 0.15)' : 'none',
+              fontFamily: "'Inter', sans-serif",
+              background: isAdmin ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
+              color: isAdmin ? '#ffffff' : 'rgba(255, 255, 255, 0.3)',
+              boxShadow: isAdmin ? '0 0 20px rgba(255,255,255,0.03)' : 'none',
             }}
           >
-            <span style={{ fontSize: '16px' }}>🛡️</span>
+            <span style={{ fontSize: '13px' }}>◉</span>
             Admin
           </button>
           <button
@@ -185,25 +184,24 @@ export default function LoginPage() {
             onClick={() => setRole('employee')}
             style={{
               flex: 1,
-              padding: '12px 16px',
+              padding: '11px 16px',
               borderRadius: '11px',
               border: 'none',
               cursor: 'pointer',
-              fontSize: '14px',
+              fontSize: '13px',
               fontWeight: 600,
-              transition: 'all 0.3s ease',
+              transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               gap: '8px',
-              background: !isAdmin
-                ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.15))'
-                : 'transparent',
-              color: !isAdmin ? '#6ee7b7' : '#64748b',
-              boxShadow: !isAdmin ? '0 2px 12px rgba(16, 185, 129, 0.15)' : 'none',
+              fontFamily: "'Inter', sans-serif",
+              background: !isAdmin ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
+              color: !isAdmin ? '#ffffff' : 'rgba(255, 255, 255, 0.3)',
+              boxShadow: !isAdmin ? '0 0 20px rgba(255,255,255,0.03)' : 'none',
             }}
           >
-            <span style={{ fontSize: '16px' }}>👤</span>
+            <span style={{ fontSize: '13px' }}>⬡</span>
             Employee
           </button>
         </div>
@@ -212,10 +210,11 @@ export default function LoginPage() {
           {/* Email */}
           <div style={{ marginBottom: '20px' }}>
             <label style={{
-              display: 'block', fontSize: '13px',
-              color: '#94a3b8', marginBottom: '8px', fontWeight: 500,
+              display: 'block', fontSize: '11px',
+              color: 'rgba(255,255,255,0.3)', marginBottom: '8px',
+              fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px',
             }}>
-              Email Address
+              Email
             </label>
             <input
               id="login-email"
@@ -227,22 +226,31 @@ export default function LoginPage() {
               style={{
                 width: '100%', padding: '14px 16px',
                 borderRadius: '12px',
-                border: `1px solid ${isAdmin ? 'rgba(99, 102, 241, 0.2)' : 'rgba(16, 185, 129, 0.2)'}`,
-                background: 'rgba(15, 22, 41, 0.6)',
-                color: '#f1f5f9', fontSize: '14px',
-                outline: 'none', transition: 'border-color 0.2s',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'rgba(255, 255, 255, 0.03)',
+                color: '#ffffff', fontSize: '14px',
+                outline: 'none',
+                transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                 boxSizing: 'border-box',
+                fontFamily: "'Inter', sans-serif",
               }}
-              onFocus={(e) => e.target.style.borderColor = isAdmin ? '#6366f1' : '#10b981'}
-              onBlur={(e) => e.target.style.borderColor = isAdmin ? 'rgba(99, 102, 241, 0.2)' : 'rgba(16, 185, 129, 0.2)'}
+              onFocus={(e) => {
+                e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                e.target.style.boxShadow = '0 0 0 3px rgba(255, 255, 255, 0.03)';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                e.target.style.boxShadow = 'none';
+              }}
             />
           </div>
 
           {/* Password */}
-          <div style={{ marginBottom: '24px' }}>
+          <div style={{ marginBottom: '28px' }}>
             <label style={{
-              display: 'block', fontSize: '13px',
-              color: '#94a3b8', marginBottom: '8px', fontWeight: 500,
+              display: 'block', fontSize: '11px',
+              color: 'rgba(255,255,255,0.3)', marginBottom: '8px',
+              fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px',
             }}>
               Password
             </label>
@@ -256,33 +264,44 @@ export default function LoginPage() {
               style={{
                 width: '100%', padding: '14px 16px',
                 borderRadius: '12px',
-                border: `1px solid ${isAdmin ? 'rgba(99, 102, 241, 0.2)' : 'rgba(16, 185, 129, 0.2)'}`,
-                background: 'rgba(15, 22, 41, 0.6)',
-                color: '#f1f5f9', fontSize: '14px',
-                outline: 'none', transition: 'border-color 0.2s',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'rgba(255, 255, 255, 0.03)',
+                color: '#ffffff', fontSize: '14px',
+                outline: 'none',
+                transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                 boxSizing: 'border-box',
+                fontFamily: "'Inter', sans-serif",
               }}
-              onFocus={(e) => e.target.style.borderColor = isAdmin ? '#6366f1' : '#10b981'}
-              onBlur={(e) => e.target.style.borderColor = isAdmin ? 'rgba(99, 102, 241, 0.2)' : 'rgba(16, 185, 129, 0.2)'}
+              onFocus={(e) => {
+                e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                e.target.style.boxShadow = '0 0 0 3px rgba(255, 255, 255, 0.03)';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                e.target.style.boxShadow = 'none';
+              }}
             />
           </div>
 
           {/* Error */}
           {error && (
             <div style={{
-              background: 'rgba(239, 68, 68, 0.1)',
-              border: '1px solid rgba(239, 68, 68, 0.2)',
-              borderRadius: '10px',
+              background: 'rgba(239, 68, 68, 0.06)',
+              border: '1px solid rgba(239, 68, 68, 0.12)',
+              borderRadius: '12px',
               padding: '12px 16px',
               marginBottom: '20px',
-              color: '#f87171',
+              color: 'rgba(239, 68, 68, 0.8)',
               fontSize: '13px',
               display: 'flex',
               alignItems: 'flex-start',
-              gap: '8px',
+              gap: '10px',
               lineHeight: '1.5',
             }}>
-              <span style={{ flexShrink: 0, marginTop: '1px' }}>⚠️</span>
+              <span style={{
+                width: '6px', height: '6px', borderRadius: '50%',
+                background: '#ef4444', flexShrink: 0, marginTop: '6px',
+              }} />
               <span>{error}</span>
             </div>
           )}
@@ -295,44 +314,49 @@ export default function LoginPage() {
             style={{
               width: '100%', padding: '15px',
               borderRadius: '12px', border: 'none',
-              background: loading
-                ? 'rgba(99, 102, 241, 0.4)'
-                : isAdmin
-                  ? 'linear-gradient(135deg, #6366f1, #8b5cf6)'
-                  : 'linear-gradient(135deg, #10b981, #06b6d4)',
-              color: 'white',
-              fontSize: '15px', fontWeight: 700,
+              background: loading ? 'rgba(255, 255, 255, 0.1)' : '#ffffff',
+              color: loading ? 'rgba(255,255,255,0.5)' : '#000000',
+              fontSize: '14px', fontWeight: 700,
               cursor: loading ? 'not-allowed' : 'pointer',
-              transition: 'all 0.3s',
-              boxShadow: loading
-                ? 'none'
-                : isAdmin
-                  ? '0 6px 20px rgba(99, 102, 241, 0.3)'
-                  : '0 6px 20px rgba(16, 185, 129, 0.3)',
+              transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+              fontFamily: "'Inter', sans-serif",
+              letterSpacing: '-0.01em',
+              boxShadow: loading ? 'none' : '0 8px 24px rgba(255, 255, 255, 0.1)',
             }}
           >
-            {loading ? 'Signing in...' : `Sign In as ${isAdmin ? 'Admin' : 'Employee'}`}
+            {loading ? 'Signing in...' : `Sign In`}
           </button>
         </form>
 
         <div style={{
-          textAlign: 'center', marginTop: '24px',
-          fontSize: '12px', color: '#475569',
+          textAlign: 'center', marginTop: '28px',
+          fontSize: '12px', color: 'rgba(255, 255, 255, 0.15)',
         }}>
-          <span>🔒 Secure enterprise login</span>
-          <br />
-          <span>Protected by JWT + bcrypt</span>
+          <span>Secure enterprise login</span>
           <div style={{ marginTop: '16px', fontSize: '13px' }}>
-            <span style={{ color: '#94a3b8' }}>Don't have an account? </span>
+            <span style={{ color: 'rgba(255,255,255,0.3)' }}>No account? </span>
             <a href="/register" style={{
-              color: isAdmin ? '#6366f1' : '#10b981',
+              color: '#ffffff',
               textDecoration: 'none',
               fontWeight: 600,
-              transition: 'color 0.2s',
+              borderBottom: '1px solid rgba(255,255,255,0.2)',
+              paddingBottom: '1px',
+              transition: 'all 0.2s',
             }}>Sign up</a>
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes card-float-in {
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes ambient-drift {
+          0% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(30px, -20px) scale(1.05); }
+          100% { transform: translate(-20px, 30px) scale(0.95); }
+        }
+      `}</style>
     </div>
   );
 }

@@ -6,22 +6,38 @@ export default function Header({ title, subtitle }) {
       <div>
         <h2 className="header-title">{title}</h2>
         {subtitle && (
-          <span style={{ fontSize: '13px', color: 'var(--text-muted)' }}>{subtitle}</span>
+          <span style={{
+            fontSize: '12px',
+            color: 'var(--text-muted)',
+            letterSpacing: '0.5px',
+            fontWeight: 400,
+          }}>{subtitle}</span>
         )}
       </div>
       <div className="header-actions">
-        <button className="btn btn-outline" style={{ fontSize: '13px', padding: '8px 14px' }}>
-          📥 Export
+        <button className="btn btn-outline" style={{ fontSize: '12px', padding: '7px 14px' }}>
+          ↓ Export
         </button>
-        <button className="btn btn-primary" style={{ fontSize: '13px', padding: '8px 14px' }}>
+        <button className="btn btn-primary" style={{ fontSize: '12px', padding: '7px 14px' }}>
           ⚡ Generate Report
         </button>
         <div style={{
-          width: '36px', height: '36px', borderRadius: '10px',
-          background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))',
+          width: '32px', height: '32px', borderRadius: '10px',
+          background: 'rgba(255, 255, 255, 0.08)',
+          border: '1px solid var(--border)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: '16px', cursor: 'pointer',
-        }}>
+          fontSize: '14px', cursor: 'pointer',
+          transition: 'all 0.3s',
+        }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(255,255,255,0.12)';
+            e.currentTarget.style.borderColor = 'var(--border-hover)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+            e.currentTarget.style.borderColor = 'var(--border)';
+          }}
+        >
           👤
         </div>
       </div>

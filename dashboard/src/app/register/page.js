@@ -44,78 +44,126 @@ export default function Register() {
 
   const isAdmin = role === 'admin';
 
+  const inputStyle = {
+    width: '100%', padding: '13px 16px', boxSizing: 'border-box',
+    background: 'rgba(255, 255, 255, 0.03)',
+    border: '1px solid rgba(255, 255, 255, 0.08)',
+    borderRadius: '12px', color: '#ffffff', fontSize: '14px', outline: 'none',
+    transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+    fontFamily: "'Inter', sans-serif",
+  };
+
+  const labelStyle = {
+    display: 'block', fontSize: '11px', fontWeight: 600,
+    color: 'rgba(255,255,255,0.3)', marginBottom: '8px',
+    textTransform: 'uppercase', letterSpacing: '1px',
+  };
+
+  const handleFocus = (e) => {
+    e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+    e.target.style.boxShadow = '0 0 0 3px rgba(255, 255, 255, 0.03)';
+  };
+
+  const handleBlur = (e) => {
+    e.target.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+    e.target.style.boxShadow = 'none';
+  };
+
   return (
     <div style={{
       minHeight: '100vh',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%)',
-      fontFamily: '"Inter", sans-serif',
+      background: '#000000',
+      fontFamily: "'Inter', 'Space Grotesk', sans-serif",
       color: '#fff',
+      position: 'relative',
+      overflow: 'hidden',
     }}>
+      {/* Ambient background orbs */}
       <div style={{
-        background: 'rgba(30, 41, 59, 0.7)',
-        backdropFilter: 'blur(10px)',
-        border: `1px solid ${isAdmin ? 'rgba(99, 102, 241, 0.15)' : 'rgba(16, 185, 129, 0.15)'}`,
-        borderRadius: '16px',
-        padding: '40px 32px',
-        width: '100%', maxWidth: '440px',
-        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
-        transition: 'border-color 0.3s ease',
+        position: 'fixed', top: '-25%', left: '-15%',
+        width: '600px', height: '600px',
+        background: 'radial-gradient(circle, rgba(255, 255, 255, 0.02) 0%, transparent 70%)',
+        borderRadius: '50%', pointerEvents: 'none',
+      }} />
+      <div style={{
+        position: 'fixed', bottom: '-30%', right: '-10%',
+        width: '700px', height: '700px',
+        background: 'radial-gradient(circle, rgba(168, 85, 247, 0.03) 0%, transparent 70%)',
+        borderRadius: '50%', pointerEvents: 'none',
+      }} />
+
+      <div style={{
+        background: 'rgba(255, 255, 255, 0.03)',
+        backdropFilter: 'blur(40px)',
+        border: '1px solid rgba(255, 255, 255, 0.06)',
+        borderRadius: '24px',
+        padding: '44px 36px',
+        width: '100%', maxWidth: '420px',
+        boxShadow: '0 0 0 1px rgba(255,255,255,0.02) inset, 0 40px 80px rgba(0, 0, 0, 0.5)',
+        position: 'relative',
+        zIndex: 1,
+        animation: 'card-float-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        opacity: 0,
+        transform: 'translateY(20px)',
       }}>
-        <div style={{ textAlign: 'center', marginBottom: '28px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
           <div style={{
-            width: '56px', height: '56px',
-            background: isAdmin
-              ? 'linear-gradient(135deg, #6366f1, #8b5cf6)'
-              : 'linear-gradient(135deg, #10b981, #06b6d4)',
+            width: '52px', height: '52px',
+            background: '#ffffff',
             borderRadius: '14px',
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: '28px',
-            marginBottom: '16px',
-            boxShadow: isAdmin
-              ? '0 8px 24px rgba(99, 102, 241, 0.3)'
-              : '0 8px 24px rgba(16, 185, 129, 0.3)',
-            transition: 'all 0.3s ease',
-          }}>{isAdmin ? '🛡️' : '👤'}</div>
-          <h2 style={{ margin: '0 0 8px 0', fontSize: '24px', fontWeight: 700 }}>Create Account</h2>
-          <p style={{ margin: 0, color: '#94a3b8', fontSize: '14px' }}>Register for ProTracker</p>
+            fontSize: '22px',
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontWeight: 700,
+            color: '#000000',
+            marginBottom: '20px',
+            boxShadow: '0 0 30px rgba(255, 255, 255, 0.1)',
+          }}>P</div>
+          <h2 style={{
+            margin: '0 0 6px 0',
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: '24px', fontWeight: 700,
+            letterSpacing: '-0.5px',
+          }}>Create Account</h2>
+          <p style={{ margin: 0, color: 'rgba(255,255,255,0.3)', fontSize: '13px' }}>
+            Join ProTracker
+          </p>
         </div>
 
         {/* Role Toggle */}
         <div style={{
           display: 'flex',
-          background: 'rgba(15, 22, 41, 0.6)',
+          background: 'rgba(255, 255, 255, 0.03)',
           borderRadius: '14px',
           padding: '4px',
-          marginBottom: '24px',
-          border: '1px solid rgba(99, 102, 241, 0.1)',
+          marginBottom: '28px',
+          border: '1px solid rgba(255, 255, 255, 0.06)',
         }}>
           <button
             type="button"
             onClick={() => setRole('admin')}
             style={{
               flex: 1,
-              padding: '11px 16px',
+              padding: '10px 16px',
               borderRadius: '11px',
               border: 'none',
               cursor: 'pointer',
-              fontSize: '14px',
+              fontSize: '13px',
               fontWeight: 600,
-              transition: 'all 0.3s ease',
+              transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               gap: '8px',
-              background: isAdmin
-                ? 'linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.15))'
-                : 'transparent',
-              color: isAdmin ? '#a5b4fc' : '#64748b',
-              boxShadow: isAdmin ? '0 2px 12px rgba(99, 102, 241, 0.15)' : 'none',
+              fontFamily: "'Inter', sans-serif",
+              background: isAdmin ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
+              color: isAdmin ? '#ffffff' : 'rgba(255, 255, 255, 0.3)',
             }}
           >
-            <span style={{ fontSize: '15px' }}>🛡️</span>
+            <span style={{ fontSize: '12px' }}>◉</span>
             Admin
           </button>
           <button
@@ -123,46 +171,48 @@ export default function Register() {
             onClick={() => setRole('employee')}
             style={{
               flex: 1,
-              padding: '11px 16px',
+              padding: '10px 16px',
               borderRadius: '11px',
               border: 'none',
               cursor: 'pointer',
-              fontSize: '14px',
+              fontSize: '13px',
               fontWeight: 600,
-              transition: 'all 0.3s ease',
+              transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               gap: '8px',
-              background: !isAdmin
-                ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.15))'
-                : 'transparent',
-              color: !isAdmin ? '#6ee7b7' : '#64748b',
-              boxShadow: !isAdmin ? '0 2px 12px rgba(16, 185, 129, 0.15)' : 'none',
+              fontFamily: "'Inter', sans-serif",
+              background: !isAdmin ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
+              color: !isAdmin ? '#ffffff' : 'rgba(255, 255, 255, 0.3)',
             }}
           >
-            <span style={{ fontSize: '15px' }}>👤</span>
+            <span style={{ fontSize: '12px' }}>⬡</span>
             Employee
           </button>
         </div>
 
         {error && (
           <div style={{
-            background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.2)',
-            color: '#ef4444', padding: '12px 16px', borderRadius: '8px',
-            marginBottom: '24px', fontSize: '13px', display: 'flex', alignItems: 'flex-start', gap: '8px',
+            background: 'rgba(239, 68, 68, 0.06)',
+            border: '1px solid rgba(239, 68, 68, 0.12)',
+            color: 'rgba(239, 68, 68, 0.8)',
+            padding: '12px 16px', borderRadius: '12px',
+            marginBottom: '24px', fontSize: '13px',
+            display: 'flex', alignItems: 'flex-start', gap: '10px',
             lineHeight: '1.5',
           }}>
-            <span style={{ fontSize: '16px', flexShrink: 0 }}>⚠️</span>
+            <span style={{
+              width: '6px', height: '6px', borderRadius: '50%',
+              background: '#ef4444', flexShrink: 0, marginTop: '6px',
+            }} />
             <span>{error}</span>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
           <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#cbd5e1', marginBottom: '8px' }}>
-              Full Name
-            </label>
+            <label style={labelStyle}>Full Name</label>
             <input
               id="register-fullname"
               type="text"
@@ -170,19 +220,14 @@ export default function Register() {
               onChange={(e) => setFullName(e.target.value)}
               placeholder="e.g. John Doe"
               required
-              style={{
-                width: '100%', padding: '12px 16px', boxSizing: 'border-box',
-                background: 'rgba(15, 23, 42, 0.6)', border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: '8px', color: '#fff', fontSize: '14px', outline: 'none',
-                transition: 'border-color 0.2s',
-              }}
+              style={inputStyle}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
             />
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#cbd5e1', marginBottom: '8px' }}>
-              Username
-            </label>
+            <label style={labelStyle}>Username</label>
             <input
               id="register-username"
               type="text"
@@ -190,19 +235,14 @@ export default function Register() {
               onChange={(e) => setUsername(e.target.value)}
               placeholder="e.g. jdoe"
               required
-              style={{
-                width: '100%', padding: '12px 16px', boxSizing: 'border-box',
-                background: 'rgba(15, 23, 42, 0.6)', border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: '8px', color: '#fff', fontSize: '14px', outline: 'none',
-                transition: 'border-color 0.2s',
-              }}
+              style={inputStyle}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
             />
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#cbd5e1', marginBottom: '8px' }}>
-              Work Email
-            </label>
+            <label style={labelStyle}>Work Email</label>
             <input
               id="register-email"
               type="email"
@@ -210,19 +250,14 @@ export default function Register() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@company.com"
               required
-              style={{
-                width: '100%', padding: '12px 16px', boxSizing: 'border-box',
-                background: 'rgba(15, 23, 42, 0.6)', border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: '8px', color: '#fff', fontSize: '14px', outline: 'none',
-                transition: 'border-color 0.2s',
-              }}
+              style={inputStyle}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
             />
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#cbd5e1', marginBottom: '8px' }}>
-              Password
-            </label>
+            <label style={labelStyle}>Password</label>
             <input
               id="register-password"
               type="password"
@@ -230,11 +265,9 @@ export default function Register() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
               required
-              style={{
-                width: '100%', padding: '12px 16px', boxSizing: 'border-box',
-                background: 'rgba(15, 23, 42, 0.6)', border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: '8px', color: '#fff', fontSize: '14px', outline: 'none',
-              }}
+              style={inputStyle}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
             />
           </div>
 
@@ -243,37 +276,40 @@ export default function Register() {
             type="submit"
             disabled={loading}
             style={{
-              marginTop: '8px', width: '100%', padding: '12px',
-              background: loading
-                ? '#4f46e5'
-                : isAdmin
-                  ? 'linear-gradient(135deg, #6366f1, #8b5cf6)'
-                  : 'linear-gradient(135deg, #10b981, #06b6d4)',
-              color: '#fff', border: 'none', borderRadius: '8px',
-              fontSize: '15px', fontWeight: 700,
+              marginTop: '8px', width: '100%', padding: '14px',
+              background: loading ? 'rgba(255, 255, 255, 0.1)' : '#ffffff',
+              color: loading ? 'rgba(255,255,255,0.5)' : '#000000',
+              border: 'none', borderRadius: '12px',
+              fontSize: '14px', fontWeight: 700,
               cursor: loading ? 'not-allowed' : 'pointer',
-              transition: 'all 0.3s',
-              boxShadow: loading
-                ? 'none'
-                : isAdmin
-                  ? '0 6px 20px rgba(99, 102, 241, 0.3)'
-                  : '0 6px 20px rgba(16, 185, 129, 0.3)',
+              transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+              fontFamily: "'Inter', sans-serif",
+              letterSpacing: '-0.01em',
+              boxShadow: loading ? 'none' : '0 8px 24px rgba(255, 255, 255, 0.1)',
             }}
           >
-            {loading ? 'Registering...' : `Sign Up as ${isAdmin ? 'Admin' : 'Employee'}`}
+            {loading ? 'Creating Account...' : `Sign Up`}
           </button>
         </form>
 
         <div style={{ textAlign: 'center', marginTop: '24px', fontSize: '13px' }}>
-          <span style={{ color: '#94a3b8' }}>Already have an account? </span>
+          <span style={{ color: 'rgba(255,255,255,0.3)' }}>Already have an account? </span>
           <a href="/login" style={{
-            color: isAdmin ? '#6366f1' : '#10b981',
+            color: '#ffffff',
             textDecoration: 'none',
             fontWeight: 600,
-            transition: 'color 0.2s',
+            borderBottom: '1px solid rgba(255,255,255,0.2)',
+            paddingBottom: '1px',
+            transition: 'all 0.2s',
           }}>Sign in</a>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes card-float-in {
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </div>
   );
 }

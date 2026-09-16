@@ -6,6 +6,13 @@
 
 Enterprise-grade employee productivity monitoring and analytics platform with real-time tracking, AI-powered insights, and full privacy compliance.
 
+## ✨ Recent Enhancements
+
+- **Premium UI Redesign**: Introduced a sleek, dark-themed interface with glassmorphism effects, dynamic micro-animations, and smooth transitions.
+- **Enhanced Dashboard**: Upgraded productivity charts, top apps table, and real-time online employee components for better data visualization.
+- **Admin Tooling**: Added `reset_admin.py` script for easy admin credentials management.
+- **Security Updates**: Hardened backend middleware configurations.
+
 ## 🏗️ Architecture
 
 ```

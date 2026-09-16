@@ -23,60 +23,81 @@ export default function OnlineEmployees({ count, total }) {
       {/* Donut visual */}
       <div style={{
         display: 'flex', alignItems: 'center', gap: '24px',
-        marginBottom: '20px', padding: '8px 0',
+        marginBottom: '24px', padding: '8px 0',
       }}>
         <div style={{ position: 'relative', width: '80px', height: '80px' }}>
           <svg viewBox="0 0 36 36" style={{ width: '80px', height: '80px', transform: 'rotate(-90deg)' }}>
-            <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(99,102,241,0.1)" strokeWidth="3" />
+            <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="2.5" />
             <circle
               cx="18" cy="18" r="15" fill="none"
-              stroke="url(#gradient)" strokeWidth="3"
+              stroke="rgba(255, 255, 255, 0.8)" strokeWidth="2.5"
               strokeDasharray={`${percentage * 0.942} 100`}
               strokeLinecap="round"
+              style={{
+                filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.15))',
+              }}
             />
-            <defs>
-              <linearGradient id="gradient">
-                <stop offset="0%" stopColor="#6366f1" />
-                <stop offset="100%" stopColor="#10b981" />
-              </linearGradient>
-            </defs>
           </svg>
           <div style={{
             position: 'absolute', inset: 0,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: '16px', fontWeight: 800, color: 'var(--text-primary)',
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)',
+            letterSpacing: '-0.5px',
           }}>
             {percentage}%
           </div>
         </div>
         <div>
-          <div style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
-            <span style={{ color: 'var(--success)', fontWeight: 600 }}>{count}</span> active ·{' '}
-            <span style={{ color: 'var(--text-muted)' }}>{total - count}</span> offline
+          <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
+            <span style={{ color: 'var(--success)', fontWeight: 600 }}>{count}</span>
+            <span style={{ color: 'var(--text-muted)' }}> active</span>
+            <span style={{ color: 'var(--text-ghost)', margin: '0 6px' }}>·</span>
+            <span style={{ color: 'var(--text-muted)' }}>{total - count}</span>
+            <span style={{ color: 'var(--text-muted)' }}> offline</span>
           </div>
         </div>
       </div>
 
       {/* Employee list */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
         {employees.map((emp, idx) => (
           <div
             key={idx}
             style={{
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              padding: '10px 12px', borderRadius: '10px',
-              background: 'rgba(99, 102, 241, 0.04)',
-              transition: 'background 0.2s',
+              padding: '10px 14px', borderRadius: '12px',
+              background: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid transparent',
+              transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+              cursor: 'default',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
+              e.currentTarget.style.borderColor = 'var(--border)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
+              e.currentTarget.style.borderColor = 'transparent';
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <span className={`online-dot ${emp.status}`} />
               <div>
-                <div style={{ fontSize: '13px', fontWeight: 600 }}>{emp.name}</div>
-                <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{emp.dept}</div>
+                <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)' }}>{emp.name}</div>
+                <div style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '0.3px' }}>{emp.dept}</div>
               </div>
             </div>
-            <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>{emp.app}</span>
+            <span style={{
+              fontSize: '11px',
+              color: 'var(--text-secondary)',
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontWeight: 500,
+              padding: '3px 10px',
+              background: 'rgba(255, 255, 255, 0.03)',
+              borderRadius: '6px',
+              border: '1px solid var(--border)',
+            }}>{emp.app}</span>
           </div>
         ))}
       </div>

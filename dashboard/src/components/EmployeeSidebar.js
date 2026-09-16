@@ -5,20 +5,20 @@ export default function EmployeeSidebar({ activePage = 'dashboard' }) {
     {
       title: 'Overview',
       items: [
-        { id: 'dashboard', label: 'My Dashboard', icon: '📊', href: '/employee' },
+        { id: 'dashboard', label: 'My Dashboard', icon: '◉', href: '/employee' },
       ],
     },
     {
       title: 'My Data',
       items: [
-        { id: 'attendance', label: 'My Attendance', icon: '📅', href: '/employee/attendance' },
-        { id: 'reports', label: 'My Reports', icon: '📈', href: '/employee/reports' },
+        { id: 'attendance', label: 'My Attendance', icon: '▣', href: '/employee/attendance' },
+        { id: 'reports', label: 'My Reports', icon: '△', href: '/employee/reports' },
       ],
     },
     {
       title: 'Account',
       items: [
-        { id: 'settings', label: 'Settings', icon: '⚙️', href: '/employee/settings' },
+        { id: 'settings', label: 'Settings', icon: '⊙', href: '/employee/settings' },
       ],
     },
   ];
@@ -33,7 +33,7 @@ export default function EmployeeSidebar({ activePage = 'dashboard' }) {
   return (
     <aside className="sidebar">
       <div className="sidebar-logo">
-        <div className="logo-icon">📊</div>
+        <div className="logo-icon">P</div>
         <h1>ProTracker</h1>
       </div>
 
@@ -48,7 +48,7 @@ export default function EmployeeSidebar({ activePage = 'dashboard' }) {
                     href={item.href}
                     className={`nav-link ${activePage === item.id ? 'active' : ''}`}
                   >
-                    <span>{item.icon}</span>
+                    <span style={{ fontSize: '14px', opacity: 0.6 }}>{item.icon}</span>
                     <span>{item.label}</span>
                   </a>
                 </li>
@@ -66,15 +66,15 @@ export default function EmployeeSidebar({ activePage = 'dashboard' }) {
         flexDirection: 'column',
         gap: '12px'
       }}>
-        <button onClick={handleLogout} className="btn btn-outline" style={{ width: '100%', fontSize: '13px', padding: '8px' }}>
-          Logout
+        <button onClick={handleLogout} className="btn btn-outline" style={{ width: '100%', fontSize: '12px', padding: '8px' }}>
+          Sign Out
         </button>
-        <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+        <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
             <span className="online-dot active" />
-            <span style={{ color: 'var(--text-secondary)' }}>System Online</span>
+            <span style={{ color: 'var(--text-secondary)', fontSize: '11px' }}>System Active</span>
           </div>
-          <span>v1.0.0 · Employee Portal</span>
+          <span style={{ letterSpacing: '0.5px' }}>v1.0 · Employee Portal</span>
         </div>
       </div>
     </aside>

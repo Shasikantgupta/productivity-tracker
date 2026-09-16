@@ -31,8 +31,8 @@ export default function ProductivityChart({ data }) {
     const maxScore = Math.max(...scores, 100);
     const minScore = Math.min(...scores, 0);
 
-    // Grid lines
-    ctx.strokeStyle = 'rgba(99, 102, 241, 0.08)';
+    // Grid lines — very subtle
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
     ctx.lineWidth = 1;
     for (let i = 0; i <= 4; i++) {
       const y = padding.top + (chartH / 4) * i;
@@ -43,7 +43,7 @@ export default function ProductivityChart({ data }) {
 
       // Y labels
       const val = Math.round(maxScore - ((maxScore - minScore) / 4) * i);
-      ctx.fillStyle = '#64748b';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
       ctx.font = '11px Inter';
       ctx.textAlign = 'right';
       ctx.fillText(val.toString(), padding.left - 8, y + 4);
@@ -55,10 +55,10 @@ export default function ProductivityChart({ data }) {
       y: padding.top + chartH - ((d.score - minScore) / (maxScore - minScore)) * chartH,
     }));
 
-    // Gradient fill
+    // Gradient fill — editorial monochrome
     const gradient = ctx.createLinearGradient(0, padding.top, 0, h - padding.bottom);
-    gradient.addColorStop(0, 'rgba(99, 102, 241, 0.25)');
-    gradient.addColorStop(1, 'rgba(99, 102, 241, 0.0)');
+    gradient.addColorStop(0, 'rgba(255, 255, 255, 0.08)');
+    gradient.addColorStop(1, 'rgba(255, 255, 255, 0.0)');
 
     ctx.beginPath();
     ctx.moveTo(points[0].x, h - padding.bottom);
@@ -68,7 +68,7 @@ export default function ProductivityChart({ data }) {
     ctx.fillStyle = gradient;
     ctx.fill();
 
-    // Line
+    // Line — white
     ctx.beginPath();
     ctx.moveTo(points[0].x, points[0].y);
     for (let i = 1; i < points.length; i++) {
@@ -77,24 +77,33 @@ export default function ProductivityChart({ data }) {
       ctx.quadraticCurveTo(points[i - 1].x, points[i - 1].y, xc, yc);
     }
     ctx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
-    ctx.strokeStyle = '#6366f1';
-    ctx.lineWidth = 2.5;
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+    ctx.lineWidth = 2;
     ctx.stroke();
 
-    // Dots
+    // Dots — glowing white
     points.forEach((p, i) => {
+      // Outer glow
       ctx.beginPath();
-      ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
-      ctx.fillStyle = '#6366f1';
+      ctx.arc(p.x, p.y, 6, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
       ctx.fill();
+
+      // Main dot
       ctx.beginPath();
-      ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
-      ctx.fillStyle = '#fff';
+      ctx.arc(p.x, p.y, 3.5, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+      ctx.fill();
+
+      // Center highlight
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
       ctx.fill();
 
       // X label
       const dateStr = data[i].date.slice(5); // MM-DD
-      ctx.fillStyle = '#64748b';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
       ctx.font = '11px Inter';
       ctx.textAlign = 'center';
       ctx.fillText(dateStr, p.x, h - padding.bottom + 20);

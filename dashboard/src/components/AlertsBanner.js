@@ -5,22 +5,39 @@ export default function AlertsBanner({ count }) {
 
   return (
     <div style={{
-      background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(245, 158, 11, 0.08))',
-      border: '1px solid rgba(239, 68, 68, 0.2)',
+      background: 'rgba(239, 68, 68, 0.04)',
+      border: '1px solid rgba(239, 68, 68, 0.12)',
       borderRadius: 'var(--radius-md)',
-      padding: '14px 20px',
-      marginBottom: '24px',
+      padding: '14px 22px',
+      marginBottom: '28px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
+      backdropFilter: 'blur(20px)',
+      animation: 'card-float-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+      opacity: 0,
+      transform: 'translateY(16px)',
     }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        <span style={{ fontSize: '20px' }}>🚨</span>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+        <span style={{
+          width: '8px', height: '8px', borderRadius: '50%',
+          background: '#ef4444',
+          boxShadow: '0 0 10px rgba(239, 68, 68, 0.4)',
+          animation: 'dot-pulse 2s infinite',
+        }} />
         <div>
-          <span style={{ fontWeight: 600, fontSize: '14px' }}>
-            {count} unacknowledged security alert{count > 1 ? 's' : ''}
+          <span style={{
+            fontWeight: 600, fontSize: '13px',
+            color: 'var(--text-primary)',
+            letterSpacing: '-0.01em',
+          }}>
+            {count} unacknowledged alert{count > 1 ? 's' : ''}
           </span>
-          <span style={{ color: 'var(--text-muted)', fontSize: '13px', marginLeft: '8px' }}>
+          <span style={{
+            color: 'var(--text-muted)',
+            fontSize: '12px',
+            marginLeft: '8px',
+          }}>
             require attention
           </span>
         </div>
@@ -28,9 +45,13 @@ export default function AlertsBanner({ count }) {
       <a
         href="/alerts"
         className="btn btn-outline"
-        style={{ fontSize: '13px', padding: '6px 14px', color: '#f87171', borderColor: 'rgba(239,68,68,0.3)' }}
+        style={{
+          fontSize: '12px', padding: '6px 14px',
+          color: 'rgba(239, 68, 68, 0.8)',
+          borderColor: 'rgba(239, 68, 68, 0.15)',
+        }}
       >
-        View Alerts →
+        View →
       </a>
     </div>
   );
