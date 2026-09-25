@@ -31,8 +31,8 @@ export default function ProductivityChart({ data }) {
     const maxScore = Math.max(...scores, 100);
     const minScore = Math.min(...scores, 0);
 
-    // Grid lines — very subtle
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+    // Grid lines — cosmic blue tint
+    ctx.strokeStyle = 'rgba(80, 120, 255, 0.06)';
     ctx.lineWidth = 1;
     for (let i = 0; i <= 4; i++) {
       const y = padding.top + (chartH / 4) * i;
@@ -43,7 +43,7 @@ export default function ProductivityChart({ data }) {
 
       // Y labels
       const val = Math.round(maxScore - ((maxScore - minScore) / 4) * i);
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+      ctx.fillStyle = 'rgba(160, 175, 220, 0.25)';
       ctx.font = '11px Inter';
       ctx.textAlign = 'right';
       ctx.fillText(val.toString(), padding.left - 8, y + 4);
@@ -55,10 +55,11 @@ export default function ProductivityChart({ data }) {
       y: padding.top + chartH - ((d.score - minScore) / (maxScore - minScore)) * chartH,
     }));
 
-    // Gradient fill — editorial monochrome
+    // Gradient fill — cosmic blue/violet
     const gradient = ctx.createLinearGradient(0, padding.top, 0, h - padding.bottom);
-    gradient.addColorStop(0, 'rgba(255, 255, 255, 0.08)');
-    gradient.addColorStop(1, 'rgba(255, 255, 255, 0.0)');
+    gradient.addColorStop(0, 'rgba(110, 142, 255, 0.12)');
+    gradient.addColorStop(0.5, 'rgba(155, 109, 255, 0.04)');
+    gradient.addColorStop(1, 'rgba(80, 120, 255, 0.0)');
 
     ctx.beginPath();
     ctx.moveTo(points[0].x, h - padding.bottom);
@@ -68,7 +69,7 @@ export default function ProductivityChart({ data }) {
     ctx.fillStyle = gradient;
     ctx.fill();
 
-    // Line — white
+    // Line — cosmic gradient stroke
     ctx.beginPath();
     ctx.moveTo(points[0].x, points[0].y);
     for (let i = 1; i < points.length; i++) {
@@ -77,25 +78,54 @@ export default function ProductivityChart({ data }) {
       ctx.quadraticCurveTo(points[i - 1].x, points[i - 1].y, xc, yc);
     }
     ctx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+
+    // Create gradient along the line
+    const lineGrad = ctx.createLinearGradient(points[0].x, 0, points[points.length - 1].x, 0);
+    lineGrad.addColorStop(0, 'rgba(110, 142, 255, 0.8)');
+    lineGrad.addColorStop(0.5, 'rgba(155, 109, 255, 0.7)');
+    lineGrad.addColorStop(1, 'rgba(56, 217, 245, 0.8)');
+    ctx.strokeStyle = lineGrad;
     ctx.lineWidth = 2;
     ctx.stroke();
 
-    // Dots — glowing white
+    // Line glow effect
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+    for (let i = 1; i < points.length; i++) {
+      const xc = (points[i].x + points[i - 1].x) / 2;
+      const yc = (points[i].y + points[i - 1].y) / 2;
+      ctx.quadraticCurveTo(points[i - 1].x, points[i - 1].y, xc, yc);
+    }
+    ctx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
+    ctx.strokeStyle = 'rgba(110, 142, 255, 0.15)';
+    ctx.lineWidth = 6;
+    ctx.stroke();
+
+    // Dots — orbital style with cosmic glow
     points.forEach((p, i) => {
-      // Outer glow
+      // Outer glow ring
       ctx.beginPath();
-      ctx.arc(p.x, p.y, 6, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
+      ctx.arc(p.x, p.y, 8, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(110, 142, 255, 0.06)';
       ctx.fill();
+
+      // Orbital ring
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 5.5, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(110, 142, 255, 0.15)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
 
       // Main dot
       ctx.beginPath();
       ctx.arc(p.x, p.y, 3.5, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+      const dotGrad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 3.5);
+      dotGrad.addColorStop(0, 'rgba(160, 190, 255, 1)');
+      dotGrad.addColorStop(1, 'rgba(110, 142, 255, 0.8)');
+      ctx.fillStyle = dotGrad;
       ctx.fill();
 
-      // Center highlight
+      // Center highlight (core)
       ctx.beginPath();
       ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
       ctx.fillStyle = '#ffffff';
@@ -103,7 +133,7 @@ export default function ProductivityChart({ data }) {
 
       // X label
       const dateStr = data[i].date.slice(5); // MM-DD
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+      ctx.fillStyle = 'rgba(160, 175, 220, 0.25)';
       ctx.font = '11px Inter';
       ctx.textAlign = 'center';
       ctx.fillText(dateStr, p.x, h - padding.bottom + 20);

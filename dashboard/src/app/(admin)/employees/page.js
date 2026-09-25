@@ -91,7 +91,7 @@ export default function EmployeesPage() {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                       <div style={{
                         width: '36px', height: '36px', borderRadius: '10px',
-                        background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                        background: 'linear-gradient(135deg, #6e8eff, #9b6dff)',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         fontSize: '14px', fontWeight: 700, color: 'white',
                       }}>
@@ -114,7 +114,7 @@ export default function EmployeesPage() {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <div style={{
                         width: '60px', height: '6px', borderRadius: '3px',
-                        background: 'rgba(99, 102, 241, 0.1)',
+                        background: 'rgba(80, 120, 255, 0.08)',
                       }}>
                         <div style={{
                           height: '100%', borderRadius: '3px',

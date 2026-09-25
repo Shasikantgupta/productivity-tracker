@@ -14,9 +14,9 @@ export default function TopAppsTable({ title, items, type }) {
   };
 
   const barColor = (cat) => {
-    if (cat === 'productive') return 'rgba(255, 255, 255, 0.7)';
-    if (cat === 'unproductive') return 'rgba(239, 68, 68, 0.5)';
-    return 'rgba(255, 255, 255, 0.25)';
+    if (cat === 'productive') return 'linear-gradient(90deg, rgba(110, 142, 255, 0.7), rgba(155, 109, 255, 0.5))';
+    if (cat === 'unproductive') return 'linear-gradient(90deg, rgba(248, 113, 113, 0.5), rgba(248, 113, 113, 0.3))';
+    return 'rgba(80, 120, 255, 0.2)';
   };
 
   return (
@@ -79,7 +79,7 @@ export default function TopAppsTable({ title, items, type }) {
               </div>
               <div style={{
                 height: '3px',
-                background: 'rgba(255, 255, 255, 0.04)',
+                background: 'rgba(80, 120, 255, 0.05)',
                 borderRadius: '2px',
                 overflow: 'hidden',
               }}>
@@ -89,6 +89,7 @@ export default function TopAppsTable({ title, items, type }) {
                   background: barColor(cat),
                   borderRadius: '2px',
                   transition: 'width 1s cubic-bezier(0.16, 1, 0.3, 1)',
+                  boxShadow: cat === 'productive' ? '0 0 8px rgba(110, 142, 255, 0.2)' : 'none',
                 }} />
               </div>
             </div>

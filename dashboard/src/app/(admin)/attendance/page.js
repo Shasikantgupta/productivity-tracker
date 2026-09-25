@@ -71,8 +71,8 @@ export default function AttendancePage() {
               const record = records.find(r => parseInt(r.date.split('-')[2]) === day);
               const status = record?.status || 'absent';
               const colors = {
-                present: '#10b981', wfh: '#3b82f6', late: '#f59e0b',
-                on_leave: '#ef4444', holiday: '#1e293b', absent: '#374151',
+                present: '#34d399', wfh: '#60a5fa', late: '#fbbf24',
+                on_leave: '#f87171', holiday: '#0e1230', absent: '#141832',
               };
               return (
                 <div
@@ -96,11 +96,11 @@ export default function AttendancePage() {
           </div>
           <div style={{ display: 'flex', gap: '20px', marginTop: '14px', fontSize: '12px', color: 'var(--text-muted)' }}>
             {[
-              { color: '#10b981', label: 'Present' },
-              { color: '#3b82f6', label: 'WFH' },
-              { color: '#f59e0b', label: 'Late' },
-              { color: '#ef4444', label: 'Leave' },
-              { color: '#1e293b', label: 'Holiday' },
+              { color: '#34d399', label: 'Present' },
+              { color: '#60a5fa', label: 'WFH' },
+              { color: '#fbbf24', label: 'Late' },
+              { color: '#f87171', label: 'Leave' },
+              { color: '#0e1230', label: 'Holiday' },
             ].map((l, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <div style={{ width: '12px', height: '12px', borderRadius: '3px', background: l.color }} />

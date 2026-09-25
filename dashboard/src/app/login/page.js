@@ -81,7 +81,7 @@ export default function LoginPage() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: '#000000',
+      background: 'transparent',
       fontFamily: "'Inter', 'Space Grotesk', system-ui, sans-serif",
       position: 'relative',
       overflow: 'hidden',
@@ -90,25 +90,25 @@ export default function LoginPage() {
       <div style={{
         position: 'fixed', top: '-30%', right: '-15%',
         width: '700px', height: '700px',
-        background: 'radial-gradient(circle, rgba(168, 85, 247, 0.04) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(110, 142, 255, 0.04) 0%, transparent 70%)',
         borderRadius: '50%', pointerEvents: 'none',
         animation: 'ambient-drift 25s ease-in-out infinite alternate',
       }} />
       <div style={{
         position: 'fixed', bottom: '-25%', left: '-10%',
         width: '500px', height: '500px',
-        background: 'radial-gradient(circle, rgba(255, 255, 255, 0.02) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(155, 109, 255, 0.03) 0%, transparent 70%)',
         borderRadius: '50%', pointerEvents: 'none',
         animation: 'ambient-drift 30s ease-in-out infinite alternate-reverse',
       }} />
 
       <div style={{
         width: '420px',
-        background: 'rgba(255, 255, 255, 0.03)',
-        border: '1px solid rgba(255, 255, 255, 0.06)',
+        background: 'rgba(8, 12, 35, 0.6)',
+        border: '1px solid rgba(80, 110, 200, 0.1)',
         borderRadius: '24px',
         padding: '48px 40px',
-        boxShadow: '0 0 0 1px rgba(255,255,255,0.02) inset, 0 40px 80px rgba(0, 0, 0, 0.5)',
+        boxShadow: '0 0 0 1px rgba(100, 140, 255, 0.04) inset, 0 40px 80px rgba(0, 0, 0, 0.5)',
         backdropFilter: 'blur(40px)',
         position: 'relative',
         zIndex: 1,
@@ -120,7 +120,7 @@ export default function LoginPage() {
         <div style={{ textAlign: 'center', marginBottom: '36px' }}>
           <div style={{
             width: '56px', height: '56px',
-            background: '#ffffff',
+            background: 'linear-gradient(135deg, #6e8eff, #9b6dff)',
             borderRadius: '16px',
             display: 'inline-flex',
             alignItems: 'center',
@@ -128,14 +128,14 @@ export default function LoginPage() {
             fontSize: '24px',
             fontFamily: "'Space Grotesk', sans-serif",
             fontWeight: 700,
-            color: '#000000',
+            color: '#ffffff',
             marginBottom: '20px',
-            boxShadow: '0 0 30px rgba(255, 255, 255, 0.1)',
+            boxShadow: '0 0 30px rgba(110, 142, 255, 0.2), 0 0 60px rgba(110, 142, 255, 0.05)',
           }}>P</div>
           <h1 style={{
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: '26px', fontWeight: 700,
-            color: '#ffffff', letterSpacing: '-0.8px',
+            color: '#e8ecf4', letterSpacing: '-0.8px',
             marginBottom: '6px',
           }}>
             ProTracker
@@ -148,11 +148,11 @@ export default function LoginPage() {
         {/* Role Toggle */}
         <div style={{
           display: 'flex',
-          background: 'rgba(255, 255, 255, 0.03)',
+          background: 'rgba(80, 120, 255, 0.03)',
           borderRadius: '14px',
           padding: '4px',
           marginBottom: '32px',
-          border: '1px solid rgba(255, 255, 255, 0.06)',
+          border: '1px solid rgba(80, 120, 255, 0.08)'
         }}>
           <button
             type="button"
@@ -171,9 +171,9 @@ export default function LoginPage() {
               justifyContent: 'center',
               gap: '8px',
               fontFamily: "'Inter', sans-serif",
-              background: isAdmin ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
-              color: isAdmin ? '#ffffff' : 'rgba(255, 255, 255, 0.3)',
-              boxShadow: isAdmin ? '0 0 20px rgba(255,255,255,0.03)' : 'none',
+              background: isAdmin ? 'rgba(110, 142, 255, 0.12)' : 'transparent',
+              color: isAdmin ? '#e8ecf4' : 'rgba(160, 175, 220, 0.35)',
+              boxShadow: isAdmin ? '0 0 20px rgba(110, 142, 255, 0.06)' : 'none',
             }}
           >
             <span style={{ fontSize: '13px' }}>◉</span>
@@ -196,9 +196,9 @@ export default function LoginPage() {
               justifyContent: 'center',
               gap: '8px',
               fontFamily: "'Inter', sans-serif",
-              background: !isAdmin ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
-              color: !isAdmin ? '#ffffff' : 'rgba(255, 255, 255, 0.3)',
-              boxShadow: !isAdmin ? '0 0 20px rgba(255,255,255,0.03)' : 'none',
+              background: !isAdmin ? 'rgba(110, 142, 255, 0.12)' : 'transparent',
+              color: !isAdmin ? '#e8ecf4' : 'rgba(160, 175, 220, 0.35)',
+              boxShadow: !isAdmin ? '0 0 20px rgba(110, 142, 255, 0.06)' : 'none',
             }}
           >
             <span style={{ fontSize: '13px' }}>⬡</span>
@@ -226,20 +226,20 @@ export default function LoginPage() {
               style={{
                 width: '100%', padding: '14px 16px',
                 borderRadius: '12px',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                background: 'rgba(255, 255, 255, 0.03)',
-                color: '#ffffff', fontSize: '14px',
+                border: '1px solid rgba(80, 120, 255, 0.1)',
+                background: 'rgba(15, 18, 45, 0.5)',
+                color: '#e8ecf4', fontSize: '14px',
                 outline: 'none',
                 transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                 boxSizing: 'border-box',
                 fontFamily: "'Inter', sans-serif",
               }}
               onFocus={(e) => {
-                e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                e.target.style.boxShadow = '0 0 0 3px rgba(255, 255, 255, 0.03)';
+                e.target.style.borderColor = 'rgba(110, 142, 255, 0.3)';
+                e.target.style.boxShadow = '0 0 0 3px rgba(110, 142, 255, 0.08)';
               }}
               onBlur={(e) => {
-                e.target.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                e.target.style.borderColor = 'rgba(80, 120, 255, 0.1)';
                 e.target.style.boxShadow = 'none';
               }}
             />
@@ -264,20 +264,20 @@ export default function LoginPage() {
               style={{
                 width: '100%', padding: '14px 16px',
                 borderRadius: '12px',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                background: 'rgba(255, 255, 255, 0.03)',
-                color: '#ffffff', fontSize: '14px',
+                border: '1px solid rgba(80, 120, 255, 0.1)',
+                background: 'rgba(15, 18, 45, 0.5)',
+                color: '#e8ecf4', fontSize: '14px',
                 outline: 'none',
                 transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                 boxSizing: 'border-box',
                 fontFamily: "'Inter', sans-serif",
               }}
               onFocus={(e) => {
-                e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                e.target.style.boxShadow = '0 0 0 3px rgba(255, 255, 255, 0.03)';
+                e.target.style.borderColor = 'rgba(110, 142, 255, 0.3)';
+                e.target.style.boxShadow = '0 0 0 3px rgba(110, 142, 255, 0.08)';
               }}
               onBlur={(e) => {
-                e.target.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                e.target.style.borderColor = 'rgba(80, 120, 255, 0.1)';
                 e.target.style.boxShadow = 'none';
               }}
             />
@@ -314,14 +314,14 @@ export default function LoginPage() {
             style={{
               width: '100%', padding: '15px',
               borderRadius: '12px', border: 'none',
-              background: loading ? 'rgba(255, 255, 255, 0.1)' : '#ffffff',
-              color: loading ? 'rgba(255,255,255,0.5)' : '#000000',
+              background: loading ? 'rgba(80, 120, 255, 0.15)' : 'linear-gradient(135deg, #6e8eff, #9b6dff)',
+              color: loading ? 'rgba(200, 210, 240, 0.5)' : '#ffffff',
               fontSize: '14px', fontWeight: 700,
               cursor: loading ? 'not-allowed' : 'pointer',
               transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
               fontFamily: "'Inter', sans-serif",
               letterSpacing: '-0.01em',
-              boxShadow: loading ? 'none' : '0 8px 24px rgba(255, 255, 255, 0.1)',
+              boxShadow: loading ? 'none' : '0 8px 24px rgba(110, 142, 255, 0.2), 0 0 40px rgba(110, 142, 255, 0.06)',
             }}
           >
             {loading ? 'Signing in...' : `Sign In`}
@@ -336,10 +336,10 @@ export default function LoginPage() {
           <div style={{ marginTop: '16px', fontSize: '13px' }}>
             <span style={{ color: 'rgba(255,255,255,0.3)' }}>No account? </span>
             <a href="/register" style={{
-              color: '#ffffff',
+              color: '#6e8eff',
               textDecoration: 'none',
               fontWeight: 600,
-              borderBottom: '1px solid rgba(255,255,255,0.2)',
+              borderBottom: '1px solid rgba(110, 142, 255, 0.25)',
               paddingBottom: '1px',
               transition: 'all 0.2s',
             }}>Sign up</a>

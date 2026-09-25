@@ -23,19 +23,21 @@ export default function Header({ title, subtitle }) {
         </button>
         <div style={{
           width: '32px', height: '32px', borderRadius: '10px',
-          background: 'rgba(255, 255, 255, 0.08)',
+          background: 'rgba(80, 120, 255, 0.06)',
           border: '1px solid var(--border)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontSize: '14px', cursor: 'pointer',
           transition: 'all 0.3s',
         }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(255,255,255,0.12)';
+            e.currentTarget.style.background = 'rgba(80, 120, 255, 0.12)';
             e.currentTarget.style.borderColor = 'var(--border-hover)';
+            e.currentTarget.style.boxShadow = '0 0 12px rgba(110, 142, 255, 0.08)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+            e.currentTarget.style.background = 'rgba(80, 120, 255, 0.06)';
             e.currentTarget.style.borderColor = 'var(--border)';
+            e.currentTarget.style.boxShadow = 'none';
           }}
         >
           👤

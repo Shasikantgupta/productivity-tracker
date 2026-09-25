@@ -6,9 +6,10 @@ export default function StatCard({ icon, label, value, change, changeType, color
       <div
         className="stat-icon"
         style={{
-          background: 'rgba(255, 255, 255, 0.05)',
-          border: '1px solid var(--border)',
+          background: 'rgba(80, 120, 255, 0.06)',
+          border: '1px solid rgba(80, 120, 255, 0.1)',
           fontSize: '18px',
+          boxShadow: '0 0 12px rgba(80, 120, 255, 0.04)',
         }}
       >
         {icon}

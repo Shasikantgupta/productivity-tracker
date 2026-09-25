@@ -1,44 +1,63 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap');
 
+/* =============================================
+   DEEP SPACE VOID — Design System
+   ============================================= */
+
 :root {
-  /* ---- Futuristic Editorial Palette ---- */
-  --bg-void: #000000;
-  --bg-primary: #050505;
-  --bg-secondary: #0a0a0a;
-  --bg-card: rgba(255, 255, 255, 0.03);
-  --bg-card-hover: rgba(255, 255, 255, 0.06);
-  --bg-card-solid: #0e0e0e;
-  --bg-input: rgba(255, 255, 255, 0.04);
+  /* ── Void Background Scale ── */
+  --bg-void: #020208;
+  --bg-primary: #040410;
+  --bg-secondary: #080818;
+  --bg-card: rgba(8, 10, 30, 0.55);
+  --bg-card-hover: rgba(12, 15, 40, 0.65);
+  --bg-card-solid: #0a0c1e;
+  --bg-input: rgba(15, 18, 45, 0.5);
 
-  --text-primary: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.55);
-  --text-muted: rgba(255, 255, 255, 0.3);
-  --text-ghost: rgba(255, 255, 255, 0.15);
+  /* ── Text Hierarchy ── */
+  --text-primary: #e8ecf4;
+  --text-secondary: rgba(200, 210, 240, 0.6);
+  --text-muted: rgba(160, 175, 220, 0.35);
+  --text-ghost: rgba(120, 140, 200, 0.18);
 
-  --accent-primary: #ffffff;
-  --accent-secondary: rgba(255, 255, 255, 0.7);
-  --accent-glow: rgba(255, 255, 255, 0.04);
-  --accent-cyan: #00f0ff;
-  --accent-violet: #a855f7;
+  /* ── Cosmic Accent System ── */
+  --accent-primary: #6e8eff;
+  --accent-secondary: rgba(110, 142, 255, 0.7);
+  --accent-glow: rgba(80, 120, 255, 0.06);
+  --accent-cyan: #38d9f5;
+  --accent-violet: #9b6dff;
+  --accent-blue-glow: rgba(80, 130, 255, 0.12);
+  --accent-purple-glow: rgba(140, 80, 255, 0.08);
 
-  --success: #22c55e;
-  --warning: #eab308;
-  --danger: #ef4444;
-  --info: #38bdf8;
+  /* ── Status Colors ── */
+  --success: #34d399;
+  --warning: #fbbf24;
+  --danger: #f87171;
+  --info: #60a5fa;
 
-  --border: rgba(255, 255, 255, 0.06);
-  --border-hover: rgba(255, 255, 255, 0.12);
-  --border-active: rgba(255, 255, 255, 0.2);
+  /* ── Border System ── */
+  --border: rgba(80, 100, 180, 0.1);
+  --border-hover: rgba(100, 130, 220, 0.2);
+  --border-active: rgba(110, 142, 255, 0.35);
+  --border-glow: rgba(110, 142, 255, 0.15);
 
-  /* ---- Spacing ---- */
+  /* ── Spacing ── */
   --sidebar-width: 240px;
   --header-height: 56px;
 
-  /* ---- Radius ---- */
+  /* ── Radius ── */
   --radius-sm: 10px;
   --radius-md: 14px;
   --radius-lg: 18px;
   --radius-xl: 24px;
+
+  /* ── Glass Properties ── */
+  --glass-blur: blur(30px) saturate(140%);
+  --glass-bg: rgba(8, 12, 35, 0.6);
+  --glass-border: rgba(80, 110, 200, 0.1);
+  --glass-shadow: 0 0 0 1px rgba(100, 140, 255, 0.04) inset,
+                  0 32px 64px rgba(0, 0, 0, 0.4);
+  --glass-inner-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 * {
@@ -57,7 +76,9 @@ html, body {
   overflow-x: hidden;
 }
 
-/* ---- Layout ---- */
+/* =============================================
+   LAYOUT
+   ============================================= */
 .app-layout {
   display: flex;
   min-height: 100vh;
@@ -72,28 +93,33 @@ html, body {
   padding-top: calc(var(--header-height) + 48px);
 }
 
-/* ---- Sidebar — Floating Panel ---- */
+/* =============================================
+   SIDEBAR — Floating Glass Command Panel
+   ============================================= */
 .sidebar {
   position: fixed;
   left: 16px;
   top: 16px;
   width: var(--sidebar-width);
   height: calc(100vh - 32px);
-  background: rgba(10, 10, 10, 0.7);
-  backdrop-filter: blur(40px) saturate(120%);
-  -webkit-backdrop-filter: blur(40px) saturate(120%);
-  border: 1px solid var(--border);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl);
   padding: 24px 16px;
   z-index: 100;
   display: flex;
   flex-direction: column;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.03) inset,
-    0 32px 64px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--glass-shadow);
   animation: sidebar-float-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   opacity: 0;
   transform: translateX(-20px);
+  /* Subtle inner top highlight */
+  background-image: linear-gradient(180deg,
+    rgba(100, 140, 255, 0.03) 0%,
+    transparent 40%
+  );
 }
 
 @keyframes sidebar-float-in {
@@ -114,13 +140,21 @@ html, body {
 .sidebar-logo .logo-icon {
   width: 36px;
   height: 36px;
-  background: var(--text-primary);
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-violet));
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  color: #fff;
+  box-shadow: 0 0 20px rgba(110, 142, 255, 0.2),
+              0 0 40px rgba(110, 142, 255, 0.05);
+  animation: logo-pulse 4s ease-in-out infinite;
+}
+
+@keyframes logo-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(110, 142, 255, 0.2), 0 0 40px rgba(110, 142, 255, 0.05); }
+  50% { box-shadow: 0 0 25px rgba(110, 142, 255, 0.3), 0 0 50px rgba(110, 142, 255, 0.08); }
 }
 
 .sidebar-logo h1 {
@@ -151,22 +185,23 @@ html, body {
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.01em;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   position: relative;
 }
 
 .nav-link:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(80, 120, 255, 0.06);
   color: var(--text-primary);
   transform: translateX(2px);
+  border-color: var(--border-hover);
 }
 
 .nav-link.active {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(110, 142, 255, 0.1);
   color: var(--text-primary);
   font-weight: 600;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.03);
+  box-shadow: 0 0 20px rgba(110, 142, 255, 0.05);
 }
 
 .nav-link.active::before {
@@ -177,8 +212,9 @@ html, body {
   transform: translateY(-50%);
   width: 3px;
   height: 18px;
-  background: var(--text-primary);
+  background: linear-gradient(180deg, var(--accent-primary), var(--accent-violet));
   border-radius: 0 4px 4px 0;
+  box-shadow: 0 0 8px rgba(110, 142, 255, 0.3);
 }
 
 .nav-section-title {
@@ -191,29 +227,34 @@ html, body {
   font-weight: 600;
 }
 
-/* ---- Header — Transparent, Floating ---- */
+/* =============================================
+   HEADER — Floating Transparent Command Bar
+   ============================================= */
 .header {
   position: fixed;
   top: 16px;
   left: calc(var(--sidebar-width) + 48px);
   right: 48px;
   height: var(--header-height);
-  background: rgba(5, 5, 5, 0.5);
-  backdrop-filter: blur(40px) saturate(120%);
-  -webkit-backdrop-filter: blur(40px) saturate(120%);
-  border: 1px solid var(--border);
+  background: rgba(6, 8, 25, 0.5);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 28px;
   z-index: 90;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.02) inset,
-    0 16px 48px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--glass-shadow);
   animation: header-float-in 0.6s 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   opacity: 0;
   transform: translateY(-10px);
+  /* Top edge highlight */
+  background-image: linear-gradient(180deg,
+    rgba(100, 140, 255, 0.025) 0%,
+    transparent 60%
+  );
 }
 
 @keyframes header-float-in {
@@ -237,30 +278,62 @@ html, body {
   gap: 12px;
 }
 
-/* ---- Cards — Floating Glass Panels ---- */
+/* =============================================
+   CARDS — Floating Glass Panels in Space
+   ============================================= */
 .card {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 28px;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.02) inset,
-    0 16px 48px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(24px) saturate(130%);
+  -webkit-backdrop-filter: blur(24px) saturate(130%);
+  box-shadow: var(--glass-shadow);
   animation: card-float-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   opacity: 0;
   transform: translateY(16px);
+  position: relative;
+  /* Inner top edge highlight */
+  background-image: linear-gradient(180deg,
+    rgba(120, 160, 255, 0.025) 0%,
+    transparent 50%
+  );
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(110, 142, 255, 0.08),
+    transparent 40%,
+    transparent 60%,
+    rgba(155, 109, 255, 0.04)
+  );
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 .card:hover {
   border-color: var(--border-hover);
-  background: var(--bg-card-hover);
+  background-color: var(--bg-card-hover);
   transform: translateY(-2px);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
-    0 24px 64px rgba(0, 0, 0, 0.3);
+    0 0 0 1px rgba(110, 142, 255, 0.06) inset,
+    0 24px 64px rgba(0, 0, 0, 0.35),
+    0 0 30px rgba(80, 120, 255, 0.03);
+}
+
+.card:hover::after {
+  opacity: 1;
 }
 
 @keyframes card-float-in {
@@ -270,7 +343,9 @@ html, body {
   }
 }
 
-/* ---- Stat Cards ---- */
+/* =============================================
+   STAT CARDS — Cosmic Data Panels
+   ============================================= */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -286,14 +361,17 @@ html, body {
   position: relative;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.02) inset,
-    0 8px 32px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(24px) saturate(130%);
+  -webkit-backdrop-filter: blur(24px) saturate(130%);
+  box-shadow: var(--glass-shadow);
   animation: card-float-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   opacity: 0;
   transform: translateY(16px);
+  /* Subtle inner top-edge glow */
+  background-image: linear-gradient(180deg,
+    rgba(110, 142, 255, 0.02) 0%,
+    transparent 50%
+  );
 }
 
 .stat-card:nth-child(1) { animation-delay: 0.1s; }
@@ -303,6 +381,7 @@ html, body {
 .stat-card:nth-child(5) { animation-delay: 0.3s; }
 .stat-card:nth-child(6) { animation-delay: 0.35s; }
 
+/* Top shimmer line on hover */
 .stat-card::before {
   content: '';
   position: absolute;
@@ -310,21 +389,46 @@ html, body {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(110, 142, 255, 0.3),
+    rgba(155, 109, 255, 0.2),
+    transparent
+  );
   opacity: 0;
   transition: opacity 0.4s;
 }
 
+/* Cosmic corner glow */
+.stat-card::after {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(110, 142, 255, 0.08), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
+}
+
 .stat-card:hover {
   border-color: var(--border-hover);
-  background: var(--bg-card-hover);
+  background-color: var(--bg-card-hover);
   transform: translateY(-3px);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
-    0 20px 48px rgba(0, 0, 0, 0.25);
+    0 0 0 1px rgba(110, 142, 255, 0.06) inset,
+    0 20px 48px rgba(0, 0, 0, 0.3),
+    0 0 40px rgba(80, 120, 255, 0.04);
 }
 
 .stat-card:hover::before {
+  opacity: 1;
+}
+
+.stat-card:hover::after {
   opacity: 1;
 }
 
@@ -347,6 +451,8 @@ html, body {
   line-height: 1;
   margin-bottom: 6px;
   color: var(--text-primary) !important;
+  /* Subtle text glow on large numbers */
+  text-shadow: 0 0 30px rgba(110, 142, 255, 0.08);
 }
 
 .stat-card .stat-label {
@@ -371,31 +477,38 @@ html, body {
 
 .stat-change.positive {
   color: var(--success);
-  background: rgba(34, 197, 94, 0.08);
-  border: 1px solid rgba(34, 197, 94, 0.12);
+  background: rgba(52, 211, 153, 0.08);
+  border: 1px solid rgba(52, 211, 153, 0.12);
+  box-shadow: 0 0 12px rgba(52, 211, 153, 0.05);
 }
 
 .stat-change.negative {
   color: var(--danger);
-  background: rgba(239, 68, 68, 0.08);
-  border: 1px solid rgba(239, 68, 68, 0.12);
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(248, 113, 113, 0.12);
+  box-shadow: 0 0 12px rgba(248, 113, 113, 0.05);
 }
 
-/* ---- Charts ---- */
+/* =============================================
+   CHARTS — Cosmic Data Visualization
+   ============================================= */
 .chart-container {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 28px;
   margin-bottom: 24px;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.02) inset,
-    0 16px 48px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(24px) saturate(130%);
+  -webkit-backdrop-filter: blur(24px) saturate(130%);
+  box-shadow: var(--glass-shadow);
   animation: card-float-in 0.6s 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   opacity: 0;
   transform: translateY(16px);
+  position: relative;
+  background-image: linear-gradient(180deg,
+    rgba(110, 142, 255, 0.02) 0%,
+    transparent 50%
+  );
 }
 
 .chart-header {
@@ -413,7 +526,9 @@ html, body {
   color: var(--text-primary);
 }
 
-/* ---- Tables ---- */
+/* =============================================
+   TABLES — Scanline Data Panels
+   ============================================= */
 .data-table {
   width: 100%;
   border-collapse: collapse;
@@ -434,20 +549,23 @@ html, body {
 .data-table td {
   padding: 14px 16px;
   font-size: 13px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(80, 100, 180, 0.05);
   color: var(--text-secondary);
+  transition: all 0.25s;
 }
 
 .data-table tr {
-  transition: background 0.2s;
+  transition: background 0.25s;
 }
 
 .data-table tr:hover td {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(80, 120, 255, 0.03);
   color: var(--text-primary);
 }
 
-/* ---- Badges ---- */
+/* =============================================
+   BADGES — Cosmic Status Indicators
+   ============================================= */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -458,35 +576,42 @@ html, body {
   font-weight: 600;
   letter-spacing: 0.03em;
   border: 1px solid transparent;
+  transition: all 0.3s;
 }
 
 .badge-success {
-  background: rgba(34, 197, 94, 0.08);
+  background: rgba(52, 211, 153, 0.08);
   color: var(--success);
-  border-color: rgba(34, 197, 94, 0.12);
+  border-color: rgba(52, 211, 153, 0.15);
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.04);
 }
 .badge-warning {
-  background: rgba(234, 179, 8, 0.08);
+  background: rgba(251, 191, 36, 0.08);
   color: var(--warning);
-  border-color: rgba(234, 179, 8, 0.12);
+  border-color: rgba(251, 191, 36, 0.15);
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.04);
 }
 .badge-danger {
-  background: rgba(239, 68, 68, 0.08);
+  background: rgba(248, 113, 113, 0.08);
   color: var(--danger);
-  border-color: rgba(239, 68, 68, 0.12);
+  border-color: rgba(248, 113, 113, 0.15);
+  box-shadow: 0 0 10px rgba(248, 113, 113, 0.04);
 }
 .badge-info {
-  background: rgba(56, 189, 248, 0.08);
+  background: rgba(96, 165, 250, 0.08);
   color: var(--info);
-  border-color: rgba(56, 189, 248, 0.12);
+  border-color: rgba(96, 165, 250, 0.15);
+  box-shadow: 0 0 10px rgba(96, 165, 250, 0.04);
 }
 .badge-neutral {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(80, 100, 180, 0.06);
   color: var(--text-secondary);
-  border-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(80, 100, 180, 0.1);
 }
 
-/* ---- Buttons ---- */
+/* =============================================
+   BUTTONS — Cosmic Control Elements
+   ============================================= */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -500,31 +625,57 @@ html, body {
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   font-family: 'Inter', sans-serif;
   letter-spacing: 0.01em;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-primary {
-  background: var(--text-primary);
-  color: var(--bg-void);
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-violet));
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(110, 142, 255, 0.15);
 }
 
 .btn-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 24px rgba(110, 142, 255, 0.25),
+              0 0 40px rgba(110, 142, 255, 0.08);
+}
+
+/* Cosmic shimmer on primary button hover */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.08) 45%,
+    transparent 55%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-primary:hover::after {
+  transform: translateX(100%);
 }
 
 .btn-outline {
-  background: transparent;
+  background: rgba(80, 120, 255, 0.04);
   border: 1px solid var(--border-hover);
   color: var(--text-secondary);
 }
 
 .btn-outline:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(80, 120, 255, 0.08);
   border-color: var(--border-active);
   color: var(--text-primary);
+  box-shadow: 0 0 16px rgba(110, 142, 255, 0.06);
 }
 
-/* ---- Grid Layouts ---- */
+/* =============================================
+   GRID LAYOUTS
+   ============================================= */
 .grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -537,7 +688,9 @@ html, body {
   gap: 16px;
 }
 
-/* ---- Online Status Dot ---- */
+/* =============================================
+   ONLINE STATUS — Cosmic Activity Dots
+   ============================================= */
 .online-dot {
   width: 7px;
   height: 7px;
@@ -547,28 +700,97 @@ html, body {
 
 .online-dot.active {
   background: var(--success);
-  box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
-  animation: dot-pulse 2.5s infinite;
+  box-shadow: 0 0 8px rgba(52, 211, 153, 0.5),
+              0 0 16px rgba(52, 211, 153, 0.2);
+  animation: cosmic-dot-pulse 2.5s infinite;
 }
 
 .online-dot.idle {
   background: var(--warning);
-  box-shadow: 0 0 6px rgba(234, 179, 8, 0.3);
+  box-shadow: 0 0 6px rgba(251, 191, 36, 0.3);
 }
 .online-dot.offline { background: var(--text-muted); }
 
-@keyframes dot-pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.4); }
+@keyframes cosmic-dot-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 8px rgba(52, 211, 153, 0.5), 0 0 16px rgba(52, 211, 153, 0.2); }
+  50% { opacity: 0.6; transform: scale(1.3); box-shadow: 0 0 12px rgba(52, 211, 153, 0.6), 0 0 24px rgba(52, 211, 153, 0.3); }
 }
 
-/* ---- Scrollbar — near-invisible ---- */
+/* =============================================
+   PROGRESS BARS — Orbital Energy Tracks
+   ============================================= */
+/* Generic progress bar styling for inline use */
+div[style*="height: 3px"] > div,
+div[style*="height: 4px"] > div {
+  /* Cosmic glow for productive bars */
+  box-shadow: 0 0 6px rgba(110, 142, 255, 0.15);
+}
+
+/* =============================================
+   SCROLLBAR — Near-invisible, cosmic tinted
+   ============================================= */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.15); }
+::-webkit-scrollbar-thumb {
+  background: rgba(80, 120, 255, 0.1);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(110, 142, 255, 0.2);
+}
 
-/* ---- Responsive ---- */
+/* =============================================
+   SVG / DONUT — Orbital Ring Style
+   ============================================= */
+svg circle[stroke-dasharray] {
+  filter: drop-shadow(0 0 6px rgba(110, 142, 255, 0.2));
+}
+
+/* =============================================
+   SELECTION — Cosmic Highlight
+   ============================================= */
+::selection {
+  background: rgba(110, 142, 255, 0.2);
+  color: var(--text-primary);
+}
+
+/* =============================================
+   FOCUS STYLES — Cosmic Glow Ring
+   ============================================= */
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: rgba(110, 142, 255, 0.3) !important;
+  box-shadow: 0 0 0 3px rgba(110, 142, 255, 0.08),
+              0 0 20px rgba(110, 142, 255, 0.05) !important;
+  outline: none;
+}
+
+/* =============================================
+   PREFERS REDUCED MOTION
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .sidebar,
+  .header,
+  .card,
+  .stat-card,
+  .chart-container {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* =============================================
+   RESPONSIVE — Cosmic Viewport Scaling
+   ============================================= */
 @media (max-width: 1024px) {
   .sidebar {
     transform: translateX(-120%);
@@ -589,8 +811,42 @@ html, body {
   .grid-2, .grid-3 { grid-template-columns: 1fr; }
 }
 
-/* ---- Selection ---- */
-::selection {
-  background: rgba(255, 255, 255, 0.15);
-  color: var(--text-primary);
+@media (max-width: 640px) {
+  .main-content {
+    padding: 16px;
+    padding-top: calc(var(--header-height) + 24px);
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 16px;
+  }
+
+  .stat-card .stat-value {
+    font-size: 24px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+}
+
+/* =============================================
+   COSMIC AMBIENT KEYFRAMES
+   ============================================= */
+
+@keyframes ambient-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -20px) scale(1.05); }
+  100% { transform: translate(-20px, 30px) scale(0.95); }
+}
+
+/* Subtle cosmic energy pulse for interactive elements */
+@keyframes energy-pulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(110, 142, 255, 0.05); }
+  50% { box-shadow: 0 0 25px rgba(110, 142, 255, 0.1); }
 }

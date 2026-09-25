@@ -27,14 +27,21 @@ export default function OnlineEmployees({ count, total }) {
       }}>
         <div style={{ position: 'relative', width: '80px', height: '80px' }}>
           <svg viewBox="0 0 36 36" style={{ width: '80px', height: '80px', transform: 'rotate(-90deg)' }}>
-            <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="2.5" />
+            <defs>
+              <linearGradient id="orbital-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#6e8eff" />
+                <stop offset="50%" stopColor="#9b6dff" />
+                <stop offset="100%" stopColor="#38d9f5" />
+              </linearGradient>
+            </defs>
+            <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(80, 120, 255, 0.06)" strokeWidth="2.5" />
             <circle
               cx="18" cy="18" r="15" fill="none"
-              stroke="rgba(255, 255, 255, 0.8)" strokeWidth="2.5"
+              stroke="url(#orbital-gradient)" strokeWidth="2.5"
               strokeDasharray={`${percentage * 0.942} 100`}
               strokeLinecap="round"
               style={{
-                filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.15))',
+                filter: 'drop-shadow(0 0 8px rgba(110, 142, 255, 0.25))',
               }}
             />
           </svg>
@@ -44,6 +51,7 @@ export default function OnlineEmployees({ count, total }) {
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)',
             letterSpacing: '-0.5px',
+            textShadow: '0 0 20px rgba(110, 142, 255, 0.15)',
           }}>
             {percentage}%
           </div>
@@ -67,17 +75,17 @@ export default function OnlineEmployees({ count, total }) {
             style={{
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
               padding: '10px 14px', borderRadius: '12px',
-              background: 'rgba(255, 255, 255, 0.02)',
+              background: 'rgba(80, 120, 255, 0.02)',
               border: '1px solid transparent',
               transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
               cursor: 'default',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
+              e.currentTarget.style.background = 'rgba(80, 120, 255, 0.04)';
               e.currentTarget.style.borderColor = 'var(--border)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
+              e.currentTarget.style.background = 'rgba(80, 120, 255, 0.02)';
               e.currentTarget.style.borderColor = 'transparent';
             }}
           >
@@ -94,9 +102,9 @@ export default function OnlineEmployees({ count, total }) {
               fontFamily: "'Space Grotesk', sans-serif",
               fontWeight: 500,
               padding: '3px 10px',
-              background: 'rgba(255, 255, 255, 0.03)',
+              background: 'rgba(80, 120, 255, 0.04)',
               borderRadius: '6px',
-              border: '1px solid var(--border)',
+              border: '1px solid rgba(80, 120, 255, 0.1)',
             }}>{emp.app}</span>
           </div>
         ))}
